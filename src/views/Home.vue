@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <Timer />
     <glitched-writer text="Your Content" appear />
     <div id="inp">
       <input class="input" id="input" placeholder="$" autocomplete="off">
@@ -14,13 +15,17 @@
 
 <script>
 
-import GlitchedWriter from 'https://cdn.skypack.dev/vue-glitched-writer'
+// import GlitchedWriter from 'vue-glitched-writer'
+// import vueGlitchedWriter from 'https://cdn.skypack.dev/pin/vue-glitched-writer@v1.0.8-raV3eIK97fAHilXwleu8/mode=imports,min/optimized/vue-glitched-writer.js';
 // const GlitchedWriter = require('vue-glitched-writer');
-console.log(GlitchedWriter);
+// console.log(vueGlitchedWriter);
+
+import Timer from '@/components/Timer.vue';
 
 export default{
   components: {
-		GlitchedWriter,
+		// vueGlitchedWriter,
+    Timer
 	},
   methods:{
     next() {
