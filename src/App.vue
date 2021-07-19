@@ -37,20 +37,22 @@ export default {
 
 @keyframes MoveUpDown {
   0%, 100% {
-    top: 0;
+    top: 1vh;
   }
   50% {
-    top: 90vh;
+    top: 92.5vh;
   }
 }
 
 html, #app { 
   /* overflow-y:hidden !important; */
-  overflow-x:hidden !important;
+  overflow:hidden !important;
 }
 #app{
   background-color: #1d1e22;
   background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%);
+  /* background: #0f3854;
+    background: radial-gradient(ellipse at center,  #050505  0%, #000000 95%); */
   filter: brightness(170%);
 }
 
@@ -65,6 +67,13 @@ html, #app {
   0deg
   , rgba(29, 30, 34, 0.5), rgba(22, 22, 22, 0.5) 0px, transparent 2px, transparent 5px);
       pointer-events: none;
+}
+
+@media only screen and (max-width: 550px)  {
+  html, #app { 
+    /* overflow-y:hidden !important; */
+    overflow-y:visible !important;
+  }
 }
 
 </style>

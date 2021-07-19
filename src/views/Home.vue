@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <Timer />
-    <glitched-writer text="Your Content" appear />
-    <div id="inp">
+    <span v-if="show_time==1"> <Timer /> </span>
+    <!-- <glitched-writer text="Your Content" appear /> -->
+    <div v-if="show_time==0" id="inp">
       <input class="input" id="input" placeholder="$" autocomplete="off">
       <!-- <div class="input--shadow"></div> -->
       <button id="proceed" class="pl-2" type="button" @click="next()">
@@ -20,9 +20,14 @@
 // const GlitchedWriter = require('vue-glitched-writer');
 // console.log(vueGlitchedWriter);
 
-import Timer from '@/components/Timer.vue';
+import Timer from '@/components/Timer2.vue';
 
 export default{
+  data () {
+    return {
+      show_time: 0
+    }
+  },
   components: {
 		// vueGlitchedWriter,
     Timer
@@ -31,6 +36,7 @@ export default{
     next() {
       // var ok = check()
       var ok = 1;
+      this.show_time = 1;
       if(ok) {
         console.log("hurray");
       }

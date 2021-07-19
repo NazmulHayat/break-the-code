@@ -60,22 +60,7 @@
 .v-textarea textarea{
   padding: 10px !important;
 }
-/* 
-.card::-webkit-scrollbar {
-  width: 11px;
-}
-.card {
-  scrollbar-width: thin;
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-}
-.card::-webkit-scrollbar-track {
-  background: var(--scrollbarBG);
-}
-.card::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG);
-  border-radius: 6px;
-  border: 3px solid var(--scrollbarBG);
-} */
+
 
 .mein{
   max-width: 1000px !important;
@@ -116,6 +101,7 @@
     will-change: contents, width !important;
     font-family: "M PLUS 1p", "Open Sans", sans-serif !important;
     text-shadow: 2px 4px 10px rgb(165 229 212 / 50%) !important
+    /* text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0) !important; */
 }
 
 .txt{
