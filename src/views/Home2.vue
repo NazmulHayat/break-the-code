@@ -92,6 +92,7 @@
 
 .pr_img{
   height: auto;
+  filter: brightness(60%);
 }
 
 .ques-btn{

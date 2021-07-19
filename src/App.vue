@@ -40,7 +40,7 @@ export default {
     top: 0;
   }
   50% {
-    top: 93vh;
+    top: 90vh;
   }
 }
 
