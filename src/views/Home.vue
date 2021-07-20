@@ -1,7 +1,9 @@
 <template>
   <div class="main">
     <span v-if="show_time==1"> <Timer /> </span>
-    <!-- <glitched-writer text="Your Content" appear /> -->
+    <div id="welcome">
+      <div id="glitched-writer"></div>
+    </div>
     <div v-if="show_time==0" id="inp">
       <input class="input" id="input" placeholder="$" autocomplete="off">
       <!-- <div class="input--shadow"></div> -->
@@ -14,13 +16,8 @@
 </template>
 
 <script>
-
-// import GlitchedWriter from 'vue-glitched-writer'
-// import vueGlitchedWriter from 'https://cdn.skypack.dev/pin/vue-glitched-writer@v1.0.8-raV3eIK97fAHilXwleu8/mode=imports,min/optimized/vue-glitched-writer.js';
-// const GlitchedWriter = require('vue-glitched-writer');
-// console.log(vueGlitchedWriter);
-
-import Timer from '@/components/Timer2.vue';
+import GlitchedWriter from 'glitched-writer';
+import Timer from '@/components/Timer2.vue'
 
 export default{
   data () {
@@ -29,7 +26,6 @@ export default{
     }
   },
   components: {
-		// vueGlitchedWriter,
     Timer
 	},
   methods:{
@@ -37,10 +33,19 @@ export default{
       // var ok = check()
       var ok = 1;
       this.show_time = 1;
+      document.getElementById('glitched-writer').style.top = '25px';
       if(ok) {
         console.log("hurray");
       }
     }
+  },
+  mounted(){
+    const writer = new GlitchedWriter(
+      "#glitched-writer",
+      "encrypted"
+    )
+    const phrases = ['Welcome to', 'Break the Code']
+    writer.queueWrite(phrases, 1000, false);
   }
 }
 
@@ -75,6 +80,103 @@ $black: #1d1e22;
 }
 @mixin font-family {
   font-family: "M PLUS 1p", "Open Sans", sans-serif;
+}
+
+#welcome{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#glitched-writer{
+  // padding: 30px;
+  font-size: 100px !important;
+  color: $light-blue;
+  will-change: contents, width;
+
+  @include font-family;
+  @include text-shadow($light-blue);
+
+  &::after,
+  &::before {
+    content: attr(data-gw-string);
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: $blue;
+    will-change: contents, width;
+  }
+  &::before {
+    z-index: -1;
+    color: $pink;
+  }
+  &.gw-writing {
+    animation: glitch-skew 1s steps(10, end) infinite alternate-reverse;
+
+    .gw-ghosts,
+    .gw-glitched {
+      opacity: 0.6;
+      animation: glitch-blink 1s steps(20, end) infinite alternate-reverse;
+    }
+
+    &::after,
+    &::before {
+      opacity: 1;
+    }
+    &::after {
+      animation: glitch-animation-1 1.5s steps(20, end) infinite
+        alternate-reverse;
+    }
+    &::before {
+      animation: glitch-animation-2 2s steps(20, end) infinite alternate-reverse;
+    }
+  }
+  @keyframes glitch-skew {
+    $steps: 10;
+
+    @for $i from 0 through $steps {
+      #{percentage($i * 1 / $steps)} {
+        transform: skew(random(10) - 5 + deg);
+      }
+    }
+  }
+  @keyframes glitch-blink {
+    $steps: 20;
+
+    @for $i from 0 through $steps {
+      #{percentage($i * 1 / $steps)} {
+        opacity: random(10) / 10;
+      }
+    }
+  }
+  @keyframes glitch-animation-1 {
+    $steps: 20;
+
+    @for $i from 0 through $steps {
+      #{percentage($i * 1 / $steps)} {
+        clip: rect(random(100) + px, 1000px, random(100) + px, 0);
+        transform: skew(random(16) - 8 + deg) translatex(random(30) - 15 + px);
+      }
+    }
+  }
+  @keyframes glitch-animation-2 {
+    $steps: 20;
+
+    @for $i from 0 through $steps {
+      #{percentage($i * 1 / $steps)} {
+        clip: rect(random(100) + px, 1000px, random(100) + px, 0);
+        transform: skew(random(10) - 5 + deg) translatex(random(20) - 10 + px);
+      }
+    }
+  }
 }
 
 #inp{
@@ -170,4 +272,36 @@ $black: #1d1e22;
     transition: transform 0.3s 1.2s;
   }
 }
+
+@media only screen and(max-width: 1350px) {
+    #glitched-writer{
+      font-size: 80px !important;
+    }
+}
+
+@media only screen and(max-width: 1100px) {
+    #glitched-writer{
+      font-size: 70px !important;
+    }
+}
+
+@media only screen and(max-width: 950px) {
+    #glitched-writer{
+      font-size: 60px !important;
+    }
+}
+
+@media only screen and(max-width: 950px) {
+    #glitched-writer{
+      font-size: 60px !important;
+    }
+}
+
+@media only screen and(max-width: 820px) {
+    #glitched-writer{
+      font-size: 45px !important;
+    }
+}
+
+
 </style>
