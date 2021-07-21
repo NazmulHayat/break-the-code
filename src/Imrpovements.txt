@@ -1,0 +1,6 @@
+1) Next, Back, Submit button
+2) Password
+3) INFO
+4) Animation
+5) Timer
+6) 
