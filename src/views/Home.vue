@@ -1,15 +1,18 @@
 <template>
   <div class="main">
-    <span v-if="show_time==1"> <Timer /> </span>
+    <!-- <span v-if="show_time==1"> <Timer /> </span> -->
     <div id="welcome">
       <div id="glitched-writer"></div>
     </div>
     <div v-if="show_time==0" id="inp">
-      <input class="input" id="input" placeholder="$" autocomplete="off">
-      <!-- <div class="input--shadow"></div> -->
-      <button id="proceed" class="pl-2" type="button" @click="next()">
-        <v-icon size="52px" id="ic" color="#a5e5d4" elevation="24"> mdi-arrow-right </v-icon>
-      </button>
+      <div id="child-inp">
+        <input class="input" id="input" placeholder="$ Your ID" autocomplete="off">
+        <input class="input" id="input" placeholder="$ Your Password" autocomplete="off">
+        <!-- <div class="input--shadow"></div> -->
+        <button id="proceed" class="pl-2" type="button" @click="next()">
+          <v-icon size="52px" id="ic" color="#a5e5d4" elevation="24"> mdi-arrow-right </v-icon>
+        </button>
+      </div>
     </div>
 
   </div>
@@ -17,7 +20,7 @@
 
 <script>
 import GlitchedWriter from 'glitched-writer';
-import Timer from '@/components/Timer2.vue'
+// import Timer from '@/components/Timer2.vue'
 
 export default{
   data () {
@@ -26,7 +29,7 @@ export default{
     }
   },
   components: {
-    Timer
+    // Timer
 	},
   methods:{
     next() {
@@ -180,12 +183,14 @@ $black: #1d1e22;
 }
 
 #inp{
-  width: 100vw;
-  margin: auto;
+  height: 100vh;
   display: flex;
-  justify-content: center;
-  position: absolute;
-  top: 50%;
+  align-items: center;
+  justify-content: center;  
+}
+
+#child-inp{
+  max-width: 30vw;
 }
 
 #ic:hover{

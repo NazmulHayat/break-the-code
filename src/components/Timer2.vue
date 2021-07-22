@@ -14,7 +14,6 @@
 
 
 <script>
-
 (function () {
   const second = 1000,
         minute = second * 60,
@@ -48,7 +47,6 @@
         //seconds
       }, 0)
   }());
-
 </script>
 
 <style scoped>
@@ -105,7 +103,7 @@ li {
   display: inline-block;
   font-size: 1.5em;
   list-style-type: none;
-  padding: 1  em;
+  padding: 1em;
   text-transform: uppercase;
 }
 

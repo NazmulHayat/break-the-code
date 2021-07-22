@@ -22,7 +22,7 @@ export default {
 <style>
 
 
-.animated{
+/* .animated{
   width: 100vw;
   border-bottom: 2px solid rgb(68, 105, 116);
   filter: brightness(60%);
@@ -33,7 +33,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-}
+} */
 
 @keyframes MoveUpDown {
   0%, 100% {
@@ -46,8 +46,13 @@ export default {
 
 html, #app { 
   /* overflow-y:hidden !important; */
-  overflow:hidden !important;
+  overflow-x:hidden !important;
 }
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
 #app{
   background-color: #1d1e22;
   background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%);

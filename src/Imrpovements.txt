@@ -1,6 +1,7 @@
 1) Next, Back, Submit button - Done
 2) Password
 3) INFO
-4) Animation
+4) Animation - Done, bug ase ekta
 5) Timer - Done 
 6) Improve button icons
+7) Navigation - Done
