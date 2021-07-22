@@ -1,6 +1,6 @@
-1) Next, Back, Submit button
+1) Next, Back, Submit button - Done
 2) Password
 3) INFO
 4) Animation
-5) Timer
-6) 
+5) Timer - Done 
+6) Improve button icons

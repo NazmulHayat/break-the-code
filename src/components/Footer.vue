@@ -20,7 +20,7 @@
       <v-icon class="pb-1 mx-2" type="button" onclick="window.open('https://www.instagram.com/pihacks21/', '_blank')"> mdi-instagram </v-icon>
     </v-card-text>
 
-    <strong class="mb-4 text-md-subtitle-1 text-subtitle-2"> BREAK-THE-CODE |  Developed by Nazmul Hayat and Raiyan Md. Shah</strong> 
+    <strong class="mb-4 pb-4 text-md-subtitle-1 text-subtitle-2"> BREAK-THE-CODE |  Developed by Nazmul Hayat and Raiyan Md. Shah</strong> 
     </v-card> 
   </v-footer>
 </template>

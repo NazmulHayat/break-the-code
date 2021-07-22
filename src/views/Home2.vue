@@ -1,24 +1,36 @@
 <template>
-    <v-container fill-height class="mein d-flex pa-16 align-content-center">
+    <v-container fill-height id="mein" class="mein mt-5 d-flex  align-content-center">
       <!-- <v-container class="card ma-8 pr-1">
         <span  class="d-flex align-end flex-column">
 
         </span>
       </v-container> -->
-      <v-row justify="start" id="ques-text" class="ques_no pb-2 text-md-h5 text-h6"> Question {{ind}}: </v-row>
-      <v-row justify="start" id="ques-text" class="pb-4 text-md-h3 text-h4"> What the duck is your name? </v-row>
-      <v-row> <v-img v-if="img==true"  class="pr_img mb-8" src="https://picsum.photos/1000/400"> </v-img> </v-row>
+      <v-row justify="space-between" class="px-3" id="header"> 
+        <div class="timer pt-2">
+          <Timer />
+        </div>
+        <div class="btns d-flex pb-1">
+          <v-btn v-if="ind!=1" fab color="transparent" id="back" elevation="1"><v-icon size="32px" @click="back()"> mdi-arrow-left </v-icon></v-btn>
+          <v-btn v-if="ind!=4" fab color="transparent" id="next" elevation="1"><v-icon size="32px" @click="next()"> mdi-arrow-right </v-icon></v-btn>
+        </div>
+      </v-row>
+      <div class="line pt-3"></div>
+      <v-row justify="start" id="ques-text" class="ques_no pb-1 px-3 pt-9 text-md-h5 text-h6"> Question {{ind}}: </v-row>
+      <v-row justify="start" id="ques-text" class="pb-4 text-md-h3 px-3 text-h4"> {{questions[ind]}} </v-row>
+      <v-row> <v-img v-if="img==true"  class="pr_img mb-8 mx-4" src="https://picsum.photos/1000/400"> </v-img> </v-row>
       <v-row justify="start">
         <v-textarea
           label="Write your answer"
           outlined
-          class="txt"
+          class="txt px-4"
           rows="4"
         ></v-textarea>
       </v-row>
-      <v-row justify="end">
-        <v-btn class="bcknext text-h6 font-weight-black mr-2"  color="transparent"> <v-icon class="mr-2"> mdi-arrow-left </v-icon> Back  </v-btn>
-        <v-btn class="bcknext text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn>
+      <v-row justify="end" class="px-2">
+        <v-btn class="submit mb-10 text-subtitle-1 font-weight-black mr-2"  color="transparent" elevation="6">  Submit 
+          <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+          </v-btn>
+        <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
       </v-row>
       <v-btn
         fab large
@@ -26,15 +38,15 @@
         color="transparent" elevation="24"
         @click="ques_bar=!ques_bar"
       >
-        <v-icon class="mdicon" size="45px"> mdi-arrow-left </v-icon>
+        <v-icon class="mdicon" size="45px"> mdi-arrow-right </v-icon>
       </v-btn>
       <v-navigation-drawer
         v-model="ques_bar"
         absolute
         temporary
-        right
+        left
       >
-        <button v-for="index in ques_len" :key="index" class="ques-btn" large>
+        <button v-for="index in ques_len" :key="index" class="ques-btn" large @click="do_it(index)">
             Question {{index}}
         </button>
       </v-navigation-drawer>
@@ -43,27 +55,102 @@
 
 
 <script>
+
+  import Timer from '@/components/Timer3.vue';
+
   export default{
+    components : {Timer},
     data () {
       return {
-        ques_len : 20,
+        ques_len : 5,
         img: 1,
         ques_bar: null,
-        ind: 1
+        ind: 1,
+        questions: [
+          "dummy", "What the duck is your name?", "What is an apple?", "Why is life so unfair?",
+          "What is your willpower?", "Hello hunny bunny"
+        ]
       }
     },
+    methods : {
+      next () {
+        this.ind++;
+        document.getElementById('mein').style.animation = "transitionRight 1.0s";
+      },
+      back () {
+        this.ind--; 
+        document.getElementById('mein').style.animation = "transitionLeft 1.0s";
+      },
+      do_it(id){
+        // var tmp = this.ind;
+        this.ques_bar=!this.ques_bar;
+        this.ind = id;
+        // if(tmp < id) {
+        //   document.getElementById('mein').style.animation = "transitionLeft 1.0s";
+        // }
+        // else if(tmp > id){
+        //   document.getElementById('mein').style.animation = "transitionRight 1.0s";
+        // }
+
+      }
+    }
   }
 </script>
 
 <style>
+  @keyframes transitionLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-400px);
+    }
+    to{
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes transitionRight {
+    from {
+      opacity: 0;
+      transform: translateX(400px);
+    }
+    to{
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+.submit{
+}
+
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.next {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.round {
+  border-radius: 50%;
+}
+
 
 .v-textarea textarea{
   padding: 10px !important;
 }
 
+.line{
+  width: 100% !important;
+  opacity: 0.6;
+  border-bottom: 2px solid lightblue;
+}
 
 .mein{
   max-width: 1000px !important;
+  padding: 20px !important;
 }
 
 .card{
@@ -77,6 +164,8 @@
 
 .pr_img{
   height: auto;
+  max-width: 1000px !important;
+  width: 97%;
   filter: brightness(60%);
 }
 
@@ -97,6 +186,7 @@
 
 #ques-text{
     font-size: 35px;
+    width: 100% !important;
     color: #a5e5d4 !important;
     will-change: contents, width !important;
     font-family: "M PLUS 1p", "Open Sans", sans-serif !important;
@@ -118,11 +208,11 @@
 .nav-btn{
   background-color: transparent !important;
   position: absolute !important;
-  right: 20px;
+  left: 20px;
   /* top: 50%; */
 }
 
-.bcknext:hover{
+.submit:hover{
   background-color: black !important;
   color: rgb(146, 228, 255) !important;
 }
@@ -148,8 +238,9 @@
 
 @media only screen and (max-width: 1195px) {
   .nav-btn{
-    margin-top: 30px;
+    margin-top: 0px;
     top: 0;
+    left: 0;
   }
 }
 
