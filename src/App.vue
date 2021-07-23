@@ -20,6 +20,7 @@ export default {
 </script>
 
 <style>
+html { overflow-y: auto !important}
 
 
 /* .animated{
@@ -43,16 +44,6 @@ export default {
     top: 92.5vh;
   }
 }
-
-html, #app { 
-  /* overflow-y:hidden !important; */
-  overflow-x:hidden !important;
-}
-
-html::-webkit-scrollbar {
-  display: none;
-}
-
 #app{
   background-color: #1d1e22;
   background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%);

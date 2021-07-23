@@ -6,8 +6,8 @@
     </div>
     <div v-if="show_time==0" id="inp">
       <div id="child-inp">
-        <input class="input" id="input" placeholder="$ Your ID" autocomplete="off">
-        <input class="input" id="input" placeholder="$ Your Password" autocomplete="off">
+        <input class="input" placeholder="$ Your ID" autocomplete="off">
+        <input class="input" placeholder="$ Your Password" autocomplete="off">
         <!-- <div class="input--shadow"></div> -->
         <button id="proceed" class="pl-2" type="button" @click="next()">
           <v-icon size="52px" id="ic" color="#a5e5d4" elevation="24"> mdi-arrow-right </v-icon>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import GlitchedWriter from 'glitched-writer';
+import GlitchedWriter, { glyphs } from 'glitched-writer';
 // import Timer from '@/components/Timer2.vue'
 
 export default{
@@ -47,6 +47,9 @@ export default{
       "#glitched-writer",
       "encrypted"
     )
+    writer.options.extend({
+      glyphs: glyphs.letterlike
+    })
     const phrases = ['Welcome to', 'Break the Code']
     writer.queueWrite(phrases, 1000, false);
   }
@@ -58,7 +61,9 @@ export default{
 
 
 <style lang="scss" scoped>
-
+.main{
+  height:100%;
+}
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -86,11 +91,8 @@ $black: #1d1e22;
 }
 
 #welcome{
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+  width: 100%;
+  text-align: center;
 }
 
 #glitched-writer{
@@ -183,14 +185,19 @@ $black: #1d1e22;
 }
 
 #inp{
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  top:0;
+  left:0;
   display: flex;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
+  justify-items: center;
 }
 
-#child-inp{
-  max-width: 30vw;
+#child-inp *{
+  display: block;
 }
 
 #ic:hover{

@@ -20,7 +20,7 @@
       <v-icon class="pb-1 mx-2" type="button" onclick="window.open('https://www.instagram.com/pihacks21/', '_blank')"> mdi-instagram </v-icon>
     </v-card-text>
 
-    <strong class="mb-4 pb-4 text-md-subtitle-1 text-subtitle-2"> BREAK-THE-CODE |  Developed by Nazmul Hayat and Raiyan Md. Shah</strong> 
+    <strong class="text-md-subtitle-1 text-subtitle-2"> BREAK-THE-CODE |  Developed by Nazmul Hayat and Raiyan Md. Shah</strong> 
     </v-card> 
   </v-footer>
 </template>
@@ -36,8 +36,9 @@
 <style scoped>
   .crd{
     width: 100vw;
+    margin : auto;
   }
-
+  
   .v-card__subtitle, .v-card__text, .v-card__title {
     padding-top: 8px !important;
     padding-bottom: 4px !important;
