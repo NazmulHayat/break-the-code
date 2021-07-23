@@ -11,69 +11,85 @@
           <v-spacer></v-spacer>
           <v-col class="last">
             <div class="btns d-flex pb-1">
-              <v-btn fab color="transparent" id="back" elevation="1"><v-icon size="50px"> mdi-chevron-left </v-icon></v-btn>
-              <v-btn fab color="transparent" id="next" elevation="1"><v-icon size="50px"> mdi-chevron-right </v-icon></v-btn>
+              <v-btn fab color="transparent" id="back" elevation="1"
+                ><v-icon size="50px"> mdi-chevron-left </v-icon></v-btn
+              >
+              <v-btn fab color="transparent" id="next" elevation="1"
+                ><v-icon size="50px"> mdi-chevron-right </v-icon></v-btn
+              >
             </div>
           </v-col>
         </v-row>
       </v-container>
       <div class="line pt-3"></div>
 
-      <v-carousel class="carou" hide-delimiters :show-arrows="false" >
-
-
-          <v-carousel-item
-            v-for="(item,i) in questions"
-            :key="i"
+      <v-carousel class="carou" hide-delimiters :show-arrows="false">
+        <v-carousel-item v-for="(item, i) in questions" :key="i">
+          <v-row
+            justify="start"
+            id="ques-text"
+            class="ques_no pb-1 px-3 pt-9 text-md-h5 text-h6"
           >
-            
+            Question {{ i + 1 }}
+          </v-row>
+          <v-row
+            justify="start"
+            id="ques-text"
+            class="pb-4 text-md-h3 px-3 text-h4"
+          >
+            {{ item.ques }}
+          </v-row>
 
-              <v-row justify="start" id="ques-text" class="ques_no pb-1 px-3 pt-9 text-md-h5 text-h6"> Question {{i + 1}} </v-row>
-              <v-row justify="start" id="ques-text" class="pb-4 text-md-h3 px-3 text-h4"> {{item.ques}} </v-row>
-              
-              <v-row class="pr_row" v-if="item.img!=null">
-                <div class="parent_img mb-4 mt-4 "> 
-                  <img class="pr_img" src="https://picsum.photos/1600/400">  
-                </div>
-              </v-row>
+          <v-row class="pr_row" v-if="item.img != null">
+            <div class="parent_img mb-4 mt-4">
+              <img class="pr_img" src="https://picsum.photos/1600/400" />
+            </div>
+          </v-row>
 
-              <v-row justify="start">
-                <v-textarea
-                  label="Write your answer"
-                  outlined
-                  class="txt px-3"
-                  rows="4"
-                ></v-textarea>
-              </v-row>
+          <v-row justify="start">
+            <v-textarea
+              label="Write your answer"
+              outlined
+              class="txt px-3"
+              rows="4"
+            ></v-textarea>
+          </v-row>
 
-              <v-row justify="end" class="px-2">
-                <v-btn class="submit mb-10 text-subtitle-1 font-weight-black mr-2"  color="transparent" elevation="6">  Submit 
-                  <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
-                  </v-btn>
-                <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
-              </v-row>
+          <v-row justify="end" class="px-2">
+            <v-btn
+              class="submit mb-10 text-subtitle-1 font-weight-black mr-2"
+              color="transparent"
+              elevation="6"
+            >
+              Submit
+              <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+            </v-btn>
+            <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
+          </v-row>
 
-              <v-btn
-                fab large
-                class="nav-btn" 
-                color="transparent" elevation="24"
-                @click="ques_bar=!ques_bar"
-              >
-                <v-icon class="mdicon" size="45px"> mdi-arrow-right </v-icon>
-              </v-btn>
+          <v-btn
+            fab
+            large
+            class="nav-btn"
+            color="transparent"
+            elevation="24"
+            @click="ques_bar = !ques_bar"
+          >
+            <v-icon class="mdicon" size="45px"> mdi-arrow-right </v-icon>
+          </v-btn>
 
-              <v-navigation-drawer
-                v-model="ques_bar"
-                absolute
-                temporary
-                left
-              >
-                <button v-for="index in ques_len" :key="index" class="ques-btn" large @click="do_it(index)">
-                    Question {{index}}
-                </button>
-              </v-navigation-drawer>
-
-          </v-carousel-item>
+          <v-navigation-drawer v-model="ques_bar" absolute temporary left>
+            <button
+              v-for="index in ques_len"
+              :key="index"
+              class="ques-btn"
+              large
+              @click="do_it(index)"
+            >
+              Question {{ index }}
+            </button>
+          </v-navigation-drawer>
+        </v-carousel-item>
       </v-carousel>
     </v-container>
   </div>
@@ -140,14 +156,12 @@ export default {
 </script>
 
 <style>
-
-
-.init{
+.init {
   display: flex;
   justify-content: start;
 }
 
-.last{
+.last {
   display: flex;
   justify-content: end !important;
 }

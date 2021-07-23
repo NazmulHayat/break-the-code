@@ -2,7 +2,7 @@
   <v-app id="app">
     <div class="animated" />
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
     <!-- <Footer /> -->
   </v-app>
@@ -11,7 +11,7 @@
 <script>
 // import Footer from './components/Footer.vue'
 export default {
-  name: 'App',
+  name: "App",
   // components: {Footer},
   data: () => ({
     //
@@ -20,8 +20,9 @@ export default {
 </script>
 
 <style>
-html { overflow-y: auto !important}
-
+html {
+  overflow-y: auto !important;
+}
 
 /* .animated{
   width: 100vw;
@@ -37,14 +38,15 @@ html { overflow-y: auto !important}
 } */
 
 @keyframes MoveUpDown {
-  0%, 100% {
+  0%,
+  100% {
     top: 1vh;
   }
   50% {
     top: 92.5vh;
   }
 }
-#app{
+#app {
   background-color: #1d1e22;
   background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%);
   /* background: #0f3854;
@@ -52,7 +54,7 @@ html { overflow-y: auto !important}
   filter: brightness(170%);
 }
 
-#app::after{
+#app::after {
   content: "";
   position: absolute;
   top: 0;
@@ -60,16 +62,20 @@ html { overflow-y: auto !important}
   width: 100%;
   height: 100%;
   background: repeating-linear-gradient(
-  0deg
-  , rgba(29, 30, 34, 0.5), rgba(22, 22, 22, 0.5) 0px, transparent 2px, transparent 5px);
-      pointer-events: none;
+    0deg,
+    rgba(29, 30, 34, 0.5),
+    rgba(22, 22, 22, 0.5) 0px,
+    transparent 2px,
+    transparent 5px
+  );
+  pointer-events: none;
 }
 
-@media only screen and (max-width: 550px)  {
-  html, #app { 
+@media only screen and (max-width: 550px) {
+  html,
+  #app {
     /* overflow-y:hidden !important; */
-    overflow-y:visible !important;
+    overflow-y: visible !important;
   }
 }
-
 </style>

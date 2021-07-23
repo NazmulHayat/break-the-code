@@ -4,65 +4,62 @@
     <div id="welcome">
       <div id="glitched-writer"></div>
     </div>
-    <div v-if="show_time==0" id="inp">
+    <div v-if="show_time == 0" id="inp">
       <div id="child-inp">
-        <input class="input" placeholder="$ Your ID" autocomplete="off">
-        <input class="input" placeholder="$ Your Password" autocomplete="off">
+        <input class="input" placeholder="$ Your ID" autocomplete="off" />
+        <input class="input" placeholder="$ Your Password" autocomplete="off" />
         <!-- <div class="input--shadow"></div> -->
         <button id="proceed" class="pl-2" type="button" @click="next()">
-          <v-icon size="52px" id="ic" color="#a5e5d4" elevation="24"> mdi-arrow-right </v-icon>
+          <v-icon size="52px" id="ic" color="#a5e5d4" elevation="24">
+            mdi-arrow-right
+          </v-icon>
         </button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import GlitchedWriter, { glyphs } from 'glitched-writer';
+import GlitchedWriter, { glyphs } from "glitched-writer";
 // import Timer from '@/components/Timer2.vue'
 
-export default{
-  data () {
+export default {
+  data() {
     return {
-      show_time: 0
-    }
+      show_time: 0,
+    };
   },
   components: {
     // Timer
-	},
-  methods:{
+  },
+  methods: {
     next() {
       // var ok = check()
       var ok = 1;
       this.show_time = 1;
-      document.getElementById('glitched-writer').style.top = '25px';
-      if(ok) {
+      document.getElementById("glitched-writer").style.top = "25px";
+      if (ok) {
         console.log("hurray");
       }
-    }
+    },
   },
-  mounted(){
-    const writer = new GlitchedWriter(
-      "#glitched-writer",
-      "encrypted"
-    )
+  mounted() {
+    const writer = new GlitchedWriter("#glitched-writer", "encrypted");
     writer.options.extend({
-      glyphs: glyphs.letterlike
-    })
-    const phrases = ['Welcome to', 'Break the Code']
+      glyphs: glyphs.letterlike,
+    });
+    const phrases = ["Welcome to", "Break the Code"];
     writer.queueWrite(phrases, 1000, false);
-  }
-}
-
+  },
+};
 </script>
 
 
 
 
 <style lang="scss" scoped>
-.main{
-  height:100%;
+.main {
+  height: 100%;
 }
 * {
   -webkit-font-smoothing: antialiased;
@@ -90,12 +87,12 @@ $black: #1d1e22;
   font-family: "M PLUS 1p", "Open Sans", sans-serif;
 }
 
-#welcome{
+#welcome {
   width: 100%;
   text-align: center;
 }
 
-#glitched-writer{
+#glitched-writer {
   // padding: 30px;
   font-size: 100px !important;
   color: $light-blue;
@@ -184,23 +181,23 @@ $black: #1d1e22;
   }
 }
 
-#inp{
+#inp {
   height: 100%;
   width: 100%;
-  position:absolute;
-  top:0;
-  left:0;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   justify-items: center;
 }
 
-#child-inp *{
+#child-inp * {
   display: block;
 }
 
-#ic:hover{
+#ic:hover {
   filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
 }
 
@@ -286,34 +283,32 @@ $black: #1d1e22;
 }
 
 @media only screen and(max-width: 1350px) {
-    #glitched-writer{
-      font-size: 80px !important;
-    }
+  #glitched-writer {
+    font-size: 80px !important;
+  }
 }
 
 @media only screen and(max-width: 1100px) {
-    #glitched-writer{
-      font-size: 70px !important;
-    }
+  #glitched-writer {
+    font-size: 70px !important;
+  }
 }
 
 @media only screen and(max-width: 950px) {
-    #glitched-writer{
-      font-size: 60px !important;
-    }
+  #glitched-writer {
+    font-size: 60px !important;
+  }
 }
 
 @media only screen and(max-width: 950px) {
-    #glitched-writer{
-      font-size: 60px !important;
-    }
+  #glitched-writer {
+    font-size: 60px !important;
+  }
 }
 
 @media only screen and(max-width: 820px) {
-    #glitched-writer{
-      font-size: 45px !important;
-    }
+  #glitched-writer {
+    font-size: 45px !important;
+  }
 }
-
-
 </style>
