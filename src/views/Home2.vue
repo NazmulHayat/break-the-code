@@ -1,97 +1,105 @@
 <template>
   <div class="body">
-    <v-container fill-height id="mein" class="mein d-flex align-content-center">
-      <v-container class="d-flex justify-content-space-between">
-        <v-row justify="start">
-          <v-col class="init">
-            <div class="timer pt-3">
-              <Timer />
-            </div>
+    <v-container  id="mein" class="mein">
+      <v-container fluid>
+        <v-row dense>
+          <v-col class="pinit">
+            <Timer class="init" />
           </v-col>
           <v-spacer></v-spacer>
           <v-col class="last">
             <div class="btns d-flex pb-1">
               <v-btn fab color="transparent" id="back" elevation="1"
-                ><v-icon size="50px"> mdi-chevron-left </v-icon></v-btn
+                ><v-icon size="50px" @click="back()">
+                  mdi-chevron-left
+                </v-icon></v-btn
               >
               <v-btn fab color="transparent" id="next" elevation="1"
-                ><v-icon size="50px"> mdi-chevron-right </v-icon></v-btn
+                ><v-icon size="50px" @click="next()">
+                  mdi-chevron-right
+                </v-icon></v-btn
               >
             </div>
           </v-col>
         </v-row>
+
+        <div class="line"></div>
+        <v-carousel
+          class="carou"
+          hide-delimiters
+          :show-arrows="false"
+          height=""
+          v-model="ind"
+        >
+          <v-carousel-item v-for="(item, i) in questions" :key="i">
+            <v-row
+              justify="start"
+              id="ques-text"
+              class="ques_no pb-1 px-3 pt-9 text-md-h5 text-h6"
+            >
+              Question {{ i + 1 }}
+            </v-row>
+            <v-row
+              justify="start"
+              id="ques-text"
+              class="pb-4 text-md-h3 px-3 text-h4"
+            >
+              {{ item.ques }}
+            </v-row>
+
+            <v-row class="pr_row" v-if="item.img != null">
+              <div class="parent_img mb-4 mt-4">
+                <img class="pr_img" :src="item.img" />
+              </div>
+            </v-row>
+
+            <v-row justify="start">
+              <v-textarea
+                label="Write your answer"
+                outlined
+                class="txt px-3"
+                rows="4"
+              ></v-textarea>
+            </v-row>
+
+            <v-row justify="end" class="px-2">
+              <v-btn
+                class="submit mb-10 text-subtitle-1 font-weight-black mr-2"
+                color="transparent"
+                elevation="6"
+              >
+                Submit
+                <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+              </v-btn>
+              <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
+            </v-row>
+          </v-carousel-item>
+        </v-carousel>
       </v-container>
-      <div class="line pt-3"></div>
-
-      <v-carousel class="carou" hide-delimiters :show-arrows="false">
-        <v-carousel-item v-for="(item, i) in questions" :key="i">
-          <v-row
-            justify="start"
-            id="ques-text"
-            class="ques_no pb-1 px-3 pt-9 text-md-h5 text-h6"
-          >
-            Question {{ i + 1 }}
-          </v-row>
-          <v-row
-            justify="start"
-            id="ques-text"
-            class="pb-4 text-md-h3 px-3 text-h4"
-          >
-            {{ item.ques }}
-          </v-row>
-
-          <v-row class="pr_row" v-if="item.img != null">
-            <div class="parent_img mb-4 mt-4">
-              <img class="pr_img" src="https://picsum.photos/1600/400" />
-            </div>
-          </v-row>
-
-          <v-row justify="start">
-            <v-textarea
-              label="Write your answer"
-              outlined
-              class="txt px-3"
-              rows="4"
-            ></v-textarea>
-          </v-row>
-
-          <v-row justify="end" class="px-2">
-            <v-btn
-              class="submit mb-10 text-subtitle-1 font-weight-black mr-2"
-              color="transparent"
-              elevation="6"
-            >
-              Submit
-              <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
-            </v-btn>
-            <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
-          </v-row>
-
-          <v-btn
-            fab
-            large
-            class="nav-btn"
-            color="transparent"
-            elevation="24"
-            @click="ques_bar = !ques_bar"
-          >
-            <v-icon class="mdicon" size="45px"> mdi-arrow-right </v-icon>
-          </v-btn>
-
-          <v-navigation-drawer v-model="ques_bar" absolute temporary left>
-            <button
-              v-for="index in ques_len"
-              :key="index"
-              class="ques-btn"
-              large
-              @click="do_it(index)"
-            >
-              Question {{ index }}
-            </button>
-          </v-navigation-drawer>
-        </v-carousel-item>
-      </v-carousel>
     </v-container>
+
+    <v-btn
+      fab
+      large
+      class="nav-btn"
+      color="transparent"
+      elevation="24"
+      @click="ques_bar = !ques_bar"
+    >
+      <v-icon class="mdicon" size="45px"> mdi-arrow-right </v-icon>
+    </v-btn>
+
+    <v-navigation-drawer v-model="ques_bar" absolute temporary left>
+      <button
+        v-for="index in questions.length"
+        :key="index"
+        class="ques-btn"
+        large
+        @click="do_it(index - 1)"
+      >
+        Question {{ index }}
+      </button>
+    </v-navigation-drawer>
   </div>
 </template>
 
@@ -103,14 +111,13 @@ export default {
   components: { Timer },
   data() {
     return {
-      ques_len: 5,
       img: 1,
       ques_bar: null,
-      ind: 1,
+      ind: 0,
       questions: [
         {
           ques: "What is an apple?",
-          img: "https://picsum.photos/1600/400",
+          img: "https://picsum.photos/100/100",
         },
         {
           ques: "What the duck is your name?",
@@ -133,37 +140,30 @@ export default {
   },
   methods: {
     next() {
-      this.ind++;
-      document.getElementById("mein").style.animation = "transitionRight 1.0s";
+      this.ind = (this.ind + 1) % this.questions.length;
     },
     back() {
-      this.ind--;
-      document.getElementById("mein").style.animation = "transitionLeft 1.0s";
+      this.ind = (this.questions.length + this.ind - 1) % this.questions.length;
     },
     do_it(id) {
-      // var tmp = this.ind;
+      console.log(id);
       this.ques_bar = !this.ques_bar;
       this.ind = id;
-      // if(tmp < id) {
-      //   document.getElementById('mein').style.animation = "transitionLeft 1.0s";
-      // }
-      // else if(tmp > id){
-      //   document.getElementById('mein').style.animation = "transitionRight 1.0s";
-      // }
     },
   },
 };
 </script>
 
 <style>
-.init {
+.pinit {
   display: flex;
-  justify-content: start;
 }
-
+.init {
+  align-self: flex-end;
+}
 .last {
   display: flex;
-  justify-content: end !important;
+  justify-content: flex-end !important;
 }
 
 .pr_row {
@@ -172,10 +172,7 @@ export default {
   justify-content: center !important;
 }
 
-.parent_img {
-}
-
-.body {
+.bodyasd {
   height: 100%;
   display: flex !important;
   justify-content: center;
@@ -208,9 +205,6 @@ export default {
   }
 }
 
-.submit {
-}
-
 .previous {
   background-color: #f1f1f1;
   color: black;
@@ -238,6 +232,7 @@ export default {
 .mein {
   max-width: 1000px !important;
   /* padding: 20px !important; */
+  transform: scale(0.8);
 }
 
 .pr_img {

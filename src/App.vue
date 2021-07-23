@@ -4,15 +4,15 @@
     <v-main>
       <router-view />
     </v-main>
-    <!-- <Footer /> -->
+    <Footer />
   </v-app>
 </template>
 
 <script>
-// import Footer from './components/Footer.vue'
+import Footer from './components/Footer.vue'
 export default {
   name: "App",
-  // components: {Footer},
+  components: {Footer},
   data: () => ({
     //
   }),
@@ -24,7 +24,7 @@ html {
   overflow-y: auto !important;
 }
 
-/* .animated{
+.animated{
   width: 100vw;
   border-bottom: 2px solid rgb(68, 105, 116);
   filter: brightness(60%);
@@ -35,7 +35,7 @@ html {
   position: absolute;
   left: 0;
   top: 0;
-} */
+}
 
 @keyframes MoveUpDown {
   0%,
