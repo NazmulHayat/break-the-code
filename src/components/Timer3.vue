@@ -26,8 +26,8 @@
             distance = countDown - now;
 
         //   document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
-          document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)) + ' min',
-          document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second) + ' sec';
+          document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)) + 'min',
+          document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second) + 'sec';
 
         //do something later when date is reached
         if (distance < 0) {
@@ -76,10 +76,13 @@ ul{
     padding: 0;
 }
 
+.v-application ul{
+  padding: 0px !important;
+}
 .container {
   color: rgb(255, 255, 255);
   margin: 0 auto;
-  padding: 0px !important;
+  /* padding: none !important; */
   text-align: center;
   text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(255, 255, 255, 0) !important;
 }
@@ -110,12 +113,19 @@ li span {
   
   li {
     font-size: 0.5rem;
-    padding: .75rem;
+    /* padding: .75rem */
   }
   
   li span {
     font-size: 1.375rem;
   }
+}
+
+.container{
+    width: 100%;
+    padding: 0px !important;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 </style>
