@@ -1,36 +1,40 @@
 <template>
   <div class="main">
-    <span v-if="show_time==1"> <Timer /> </span>
+    <span v-if="show_time == 1"> <Timer /> </span>
     <div id="welcome">
       <div class="" id="glitched-writer"></div>
     </div>
     <div v-if="show_time == 0" id="inp">
       <div id="child-inp">
-        <input class="input" placeholder="$ Your ID" autocomplete="off" />
-        <input class="input mt-6" placeholder="$ Your Password" autocomplete="off" />
+        <input class="input" placeholder="$ Your ID" autocomplete="off"/>
+        <input
+          class="input mt-6"
+          placeholder="$ Your Password"
+          autocomplete="off"
+          type="password"
+        />
         <!-- <div class="input--shadow"></div> -->
         <!-- <button id="proceed" class="pl-2" type="button" @click="next()">
           Next
         </button> -->
-        <div class="amra pt-8 pb-2" style="display:flex; justify-content:center">
+        <div
+          class="amra pt-8 pb-2"
+          style="display: flex; justify-content: center"
+        >
           <v-btn
-              class="submit mb-10 text-h6 font-weight-black mr-2"
-              color="#a5e5d4"
-              @click = "fun()"
-              :loading="loader"
-              :disabled="loader"
-              large
-              rounded
-              outlined
-            >
-              Login
-              <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
-              <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>mdi-cached</v-icon>
-                </span>
-              </template>
-            </v-btn>
+            class="submit mb-10 text-h6 font-weight-black mr-2"
+            color="#a5e5d4"
+            @click="fun()"
+            :loading="loader"
+            :disabled="loader"
+            large rounded outlined
+          >
+            Login
+            <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+            <template v-slot:loader>
+                <v-icon  class="custom-loader" light>mdi-cached</v-icon>
+            </template>
+          </v-btn>
         </div>
       </div>
     </div>
@@ -39,18 +43,28 @@
 
 <script>
 import GlitchedWriter, { glyphs } from "glitched-writer";
-import Timer from '@/components/Timer2.vue'
+import Timer from "@/components/Timer2.vue";
 
 export default {
   data() {
     return {
+      loader: false,
+      snackbar: false,
       show_time: 0,
     };
   },
   components: {
-    Timer
+    Timer,
   },
   methods: {
+    fun(){
+      this.loader = true;
+      setTimeout(
+        () => {
+          this.loader = false;
+        }, 2000
+      );
+    },
     next() {
       // var ok = check()
       var ok = 1;
@@ -76,16 +90,49 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.custom-loader {
+  animation: loader 1s infinite;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .submit:hover {
   background-color: black !important;
   color: rgb(146, 228, 255) !important;
 }
 
-.v-btn{
+.v-btn {
   text-transform: none !important;
 }
-
 
 * {
   -webkit-font-smoothing: antialiased;
@@ -101,7 +148,7 @@ export default {
 
 @font-face {
   font-family: fkpieceofshit;
-src: url('../assets/VCR_OSD_MONO.ttf');
+  src: url("../assets/VCR_OSD_MONO.ttf");
 }
 
 $light-blue: #a5e5d4;
@@ -225,7 +272,7 @@ $black: #1d1e22;
   justify-items: center;
 }
 
-#child-inp * {
+#child-inp *:not(.custom-loader){
   display: block;
 }
 
