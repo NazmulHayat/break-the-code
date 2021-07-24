@@ -1,19 +1,37 @@
 <template>
   <div class="main">
-    <!-- <span v-if="show_time==1"> <Timer /> </span> -->
+    <span v-if="show_time==1"> <Timer /> </span>
     <div id="welcome">
-      <div id="glitched-writer"></div>
+      <div class="" id="glitched-writer"></div>
     </div>
     <div v-if="show_time == 0" id="inp">
       <div id="child-inp">
         <input class="input" placeholder="$ Your ID" autocomplete="off" />
-        <input class="input" placeholder="$ Your Password" autocomplete="off" />
+        <input class="input mt-6" placeholder="$ Your Password" autocomplete="off" />
         <!-- <div class="input--shadow"></div> -->
-        <button id="proceed" class="pl-2" type="button" @click="next()">
-          <v-icon size="52px" id="ic" color="#a5e5d4" elevation="24">
-            mdi-arrow-right
-          </v-icon>
-        </button>
+        <!-- <button id="proceed" class="pl-2" type="button" @click="next()">
+          Next
+        </button> -->
+        <div class="amra pt-8 pb-2" style="display:flex; justify-content:center">
+          <v-btn
+              class="submit mb-10 text-h6 font-weight-black mr-2"
+              color="#a5e5d4"
+              @click = "fun()"
+              :loading="loader"
+              :disabled="loader"
+              large
+              rounded
+              outlined
+            >
+              Login
+              <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+              <template v-slot:loader>
+                <span class="custom-loader">
+                  <v-icon light>mdi-cached</v-icon>
+                </span>
+              </template>
+            </v-btn>
+        </div>
       </div>
     </div>
   </div>
@@ -21,7 +39,7 @@
 
 <script>
 import GlitchedWriter, { glyphs } from "glitched-writer";
-// import Timer from '@/components/Timer2.vue'
+import Timer from '@/components/Timer2.vue'
 
 export default {
   data() {
@@ -30,7 +48,7 @@ export default {
     };
   },
   components: {
-    // Timer
+    Timer
   },
   methods: {
     next() {
@@ -58,9 +76,17 @@ export default {
 
 
 <style lang="scss" scoped>
-.main {
-  height: 100%;
+
+.submit:hover {
+  background-color: black !important;
+  color: rgb(146, 228, 255) !important;
 }
+
+.v-btn{
+  text-transform: none !important;
+}
+
+
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -71,6 +97,11 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: fkpieceofshit;
+src: url('../assets/VCR_OSD_MONO.ttf');
 }
 
 $light-blue: #a5e5d4;
@@ -84,7 +115,8 @@ $black: #1d1e22;
   text-shadow: 1px 3px 6px rgba($color, 0.5);
 }
 @mixin font-family {
-  font-family: "M PLUS 1p", "Open Sans", sans-serif;
+  // font-family: "M PLUS 1p", "Open Sans", sans-serif;
+  font-family: "fkpieceofshit";
 }
 
 #welcome {
@@ -97,8 +129,8 @@ $black: #1d1e22;
   font-size: 100px !important;
   color: $light-blue;
   will-change: contents, width;
-
-  @include font-family;
+  text-transform: uppercase;
+  @include font-family();
   @include text-shadow($light-blue);
 
   &::after,
@@ -204,7 +236,7 @@ $black: #1d1e22;
 .input {
   // position: absolute;
   bottom: 30px;
-  width: 340px;
+  max-width: 340px;
   height: auto;
   padding: 0 8px;
   background: transparent;
@@ -310,5 +342,9 @@ $black: #1d1e22;
   #glitched-writer {
     font-size: 45px !important;
   }
+}
+.main {
+  height: 100%;
+  font-family: "VCR OSD Mono", sans-serif !important;
 }
 </style>

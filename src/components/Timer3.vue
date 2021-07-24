@@ -12,7 +12,7 @@ export default {
     const second = 1000,
       minute = second * 60,
       hour = minute * 60;
-    let countDown = Date.now() + 1000 * 10 * 1,
+    let countDown = Date.now() + 1000 * 60 * 60 ,
       x = setInterval(function () {
         let distance = countDown - Date.now();
         if (distance <= 0) {

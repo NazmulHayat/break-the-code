@@ -20,6 +20,12 @@ export default {
 </script>
 
 <style>
+
+@font-face {
+  font-family: fkpieceofshit;
+  src: url('./assets/VCR_OSD_MONO.ttf');
+}
+
 html {
   overflow-y: auto !important;
 }

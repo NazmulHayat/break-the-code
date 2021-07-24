@@ -34,21 +34,21 @@
           <v-carousel-item v-for="(item, i) in questions" :key="i">
             <v-row
               justify="start"
-              id="ques-text"
-              class="ques_no pb-1 px-3 pt-9 text-md-h5 text-h6"
+              class="ques-text pb-1 px-3 pt-9 text-md-h5 text-h6"
+              id="ques_no"
             >
               Question {{ i + 1 }}
             </v-row>
             <v-row
               justify="start"
-              id="ques-text"
-              class="pb-4 text-md-h3 px-3 text-h4"
+              id="ques-detail"
+              class="ques-text pb-4 text-md-h3 px-3 text-h4"
             >
               {{ item.ques }}
             </v-row>
 
             <v-row class="pr_row" v-if="item.img != null">
-              <div class="parent_img mb-4 mt-4">
+              <div class="parent_img mb-2 mt-2">
                 <img class="pr_img" :src="item.img" />
               </div>
             </v-row>
@@ -67,10 +67,19 @@
                 class="submit mb-10 text-subtitle-1 font-weight-black mr-2"
                 color="transparent"
                 elevation="6"
+                @click = "fun()"
+                :loading="loader"
+                :disabled="loader"
               >
                 Submit
                 <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+                <template v-slot:loader>
+                  <span class="custom-loader">
+                    <v-icon light>mdi-cached</v-icon>
+                  </span>
+                </template>
               </v-btn>
+
               <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
             </v-row>
           </v-carousel-item>
@@ -97,9 +106,32 @@
         large
         @click="do_it(index - 1)"
       >
-        Question {{ index }}
+        <span v-if="questions[index - 1].attempted == 1"> <div id="speci">  Question {{ index }} </div> </span>
+        <span v-else > Question {{ index }} </span>
       </button>
     </v-navigation-drawer>
+    
+    <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+        absolute
+        bottom
+        right
+      >
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   </div>
 </template>
 
@@ -113,32 +145,52 @@ export default {
     return {
       img: 1,
       ques_bar: null,
+      loader: false,
       ind: 0,
+      snackbar: false,
+      text: 'Your answer has been submitted.',
+      timeout: 2000,
       questions: [
         {
           ques: "What is an apple?",
-          img: "https://picsum.photos/100/100",
+          img: "https://picsum.photos/1600/500",
+          attempted: 0
         },
         {
           ques: "What the duck is your name?",
           img: null,
+          attempted: 1
+
         },
         {
           ques: "Do you know Joe?",
           img: "https://picsum.photos/1600/400",
+          attempted: 0
         },
         {
           ques: "What is an ice-cream?",
           img: "https://picsum.photos/1600/400",
+          attempted: 1
         },
         {
           ques: "What is an orange?",
           img: null,
+          attempted: 1
         },
       ],
     };
   },
   methods: {
+    fun(){
+      this.loader = true;
+      setTimeout(
+        () => {
+          this.loader = false;
+          this.snackbar = true;
+          this.questions[this.ind].attempted = 1;
+        }, 2000
+      );
+    },
     next() {
       this.ind = (this.ind + 1) % this.questions.length;
     },
@@ -155,6 +207,59 @@ export default {
 </script>
 
 <style>
+
+@font-face {
+  font-family: fkpieceofshit;
+  src: url('../assets/VCR_OSD_MONO.ttf');
+}
+
+.v-application .text-md-h5 .text-h6 .text-md-h3 .text-h4 .text-subtitle-1{
+  font-family: "fkpieceofshit" !important;
+}
+
+#speci{
+  width: 100%;
+  height: 100%;
+  background-color: rgb(98, 0, 211);
+}
+
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
 .pinit {
   display: flex;
 }
@@ -172,7 +277,9 @@ export default {
   justify-content: center !important;
 }
 
-.bodyasd {
+
+
+.body {
   height: 100%;
   display: flex !important;
   justify-content: center;
@@ -232,7 +339,7 @@ export default {
 .mein {
   max-width: 1000px !important;
   /* padding: 20px !important; */
-  transform: scale(0.8);
+  /* transform: scale(0.8); */
 }
 
 .pr_img {
@@ -257,12 +364,13 @@ export default {
   background-color: rgb(48, 101, 172);
 }
 
-#ques-text {
+.ques-text {
   font-size: 35px;
   width: 100% !important;
   color: #a5e5d4 !important;
   will-change: contents, width !important;
-  font-family: "M PLUS 1p", "Open Sans", sans-serif !important;
+  /* font-family: "M PLUS 1p", "Open Sans", sans-serif !important; */
+  /* font-family: "fkpieceofshit" !important; */
   text-shadow: 2px 4px 10px rgb(165 229 212 / 50%) !important;
   /* text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0) !important; */
 }
@@ -272,7 +380,6 @@ export default {
   color: #a5e5d4 !important;
   font-weight: 400 !important;
   text-shadow: 1px 3px 6px rgb(165 229 212 / 50%) !important;
-  font-family: "M PLUS 1p", "Open Sans", sans-serif !important;
   -webkit-animation: an 0.9s infinite alternate !important;
   animation: an 0.9s infinite alternate !important;
   transition: border-color 0.1s, color 0.1s, text-shadow 0.1s,
@@ -291,8 +398,16 @@ export default {
   color: rgb(146, 228, 255) !important;
 }
 
-.ques_no {
+#ques_no {
   display: inline-block;
+  font-family: "fkpieceofshit" !important;
+}
+
+#ques-detail{
+  /* font-family: "M PLUS 1p", "Open Sans", sans-serif !important; */
+    font-family: "fkpieceofshit" !important;
+    text-transform: uppercase;
+
 }
 
 @media only screen and (max-width: 1195px) {
