@@ -26,11 +26,11 @@
           Next
         </button> -->
         <div
-          class="amra pt-8 pb-2"
+          class="amra pt-6"
           style="display: flex; justify-content: center"
         >
           <v-btn
-            class="submit mb-10 text-h6 font-weight-black mr-2"
+            class="submit text-h6 font-weight-black"
             color="#a5e5d4"
             @click="fun()"
             :loading="loader"
@@ -232,8 +232,8 @@ $black: #1d1e22;
 }
 
 #welcome {
-  width: 100%;
-  text-align: center;
+  
+  
 }
 
 #glitched-writer {
@@ -244,7 +244,9 @@ $black: #1d1e22;
   text-transform: uppercase;
   @include font-family();
   @include text-shadow($light-blue);
-
+  position: absolute;
+  text-align: center;
+  width: 100%;
   &::after,
   &::before {
     content: attr(data-gw-string);
