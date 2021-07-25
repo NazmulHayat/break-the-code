@@ -1,10 +1,9 @@
 <template>
   <v-app id="app">
     <div class="animated" />
-    <v-main>
+    
       <router-view />
-    </v-main>
-    <Footer />
+    <Footer class="foot"/>
   </v-app>
 </template>
 
@@ -20,7 +19,10 @@ export default {
 </script>
 
 <style>
-
+.foot{
+  position: absolute;
+  bottom: 0;
+}
 @font-face {
   font-family: fkpieceofshit;
   src: url('./assets/VCR_OSD_MONO.ttf');
