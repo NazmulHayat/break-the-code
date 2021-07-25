@@ -68,6 +68,8 @@
                 color="transparent"
                 elevation="6"
                 @click = "fun()"
+                rounded
+                large
                 :loading="loader"
                 :disabled="loader"
               >
@@ -207,6 +209,10 @@ export default {
 </script>
 
 <style>
+
+.v-btn{
+  text-transform: none !important; 
+}
 
 @font-face {
   font-family: fkpieceofshit;
