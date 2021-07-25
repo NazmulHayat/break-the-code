@@ -8,7 +8,7 @@
           PIHACKS'21
         </strong>
         <v-icon
-          class="pb-0  mx-2"
+          class="pb-0 mx-2"
           type="button"
           onclick="window.open('https://www.facebook.com/events/341277440774977/?active_tab=discussion', '_blank')"
         >
@@ -44,11 +44,9 @@ export default {
 </script>
 
 <style scoped>
-
-
 @font-face {
   font-family: fkpieceofshit;
-  src: url('../assets/VCR_OSD_MONO.ttf');
+  src: url("../assets/VCR_OSD_MONO.ttf");
 }
 
 .v-application .text-md-h6 {
@@ -56,11 +54,15 @@ export default {
   word-spacing: -2px;
 }
 
-.asd{
+.asd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: "fkpieceofshit" !important;
 }
 
 .crd {
+  text-transform: uppercase;
   width: 100vw;
   margin: auto;
   font-family: "fkpieceofshit" !important;
