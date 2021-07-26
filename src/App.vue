@@ -49,6 +49,33 @@ html {
     top: 92.5vh;
   }
 }
+/* #app {
+  background-color: #050705;
+  background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%);
+  background: #0f3854;
+    background: radial-gradient(ellipse at center,  #050505  0%, #000000 95%);
+  filter: brightness(170%);
+}
+
+#app::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg, 
+    rgba(29, 30, 34, 0.5),
+    rgba(22, 22, 22, 0.5) 0px,
+    transparent 2px,
+    transparent 5px
+  );
+  0D0F0D
+  z-index: 0;
+  pointer-events: none;
+} */
+
 #app {
   background-color: #1d1e22;
   background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%);

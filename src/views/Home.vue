@@ -1,67 +1,95 @@
 <template>
-  <div class="mymain">
-    <span v-if="show_time == 1"> <Timer /> </span>
-    <div id="welcome">
-      <div class="" id="glitched-writer"></div>
-    </div>
-    <div v-if="show_time == 0" id="inp">
-      <div id="child-inp">
-        <input
-          class="input"
-          placeholder="$ Your ID"
-          autocomplete="off"
-          v-model="uid"
-          v-on:keyup.enter="$event.target.nextElementSibling.focus()"
-        />
-        <input
-          class="input mt-6"
-          placeholder="$ Your Password"
-          autocomplete="off"
-          type="password"
-          v-model="pass"
-          v-on:keyup.enter="fun()"
-        />
-        <!-- <div class="input--shadow"></div> -->
-        <!-- <button id="proceed" class="pl-2" type="button" @click="next()">
-          Next
-        </button> -->
-        <div
-          class="amra pt-6"
-          style="display: flex; justify-content: center"
-        >
-          <v-btn
-            class="submit text-h6 font-weight-black"
-            color="#a5e5d4"
-            @click="fun()"
-            :loading="loader"
-            :disabled="loader"
-            large
-            rounded
-            outlined
+  <div class="mymain" id="mymain">
+    <div class="home_login">
+      <span v-if="show_time == 1"> <Timer /> </span>
+      <div id="welcome">
+        <div class="" id="glitched-writer"></div>
+      </div>
+      <div v-if="show_time == 0" id="inp">
+        <div id="child-inp" class="mx-16">
+          <!-- <input
+            class="input"
+            placeholder="$ Your ID"
+            autocomplete="off"
+            v-model="uid"
+            v-on:keyup.enter="$event.target.nextElementSibling.focus()"
+          />
+          <input
+            class="input mt-6"
+            placeholder="$ Your Password"
+            autocomplete="off"
+            type="password"
+            v-model="pass"
+            v-on:keyup.enter="fun()"
+          /> -->
+          <!-- <div class="input--shadow"></div> -->
+          <!-- <button id="proceed" class="pl-2" type="button" @click="next()">
+            Next
+          </button> -->
+          
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+            class="form"
           >
-            Login
-            <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
-            <template v-slot:loader>
-              <v-icon class="custom-loader" light>mdi-cached</v-icon>
-            </template>
-          </v-btn>
+              <v-text-field
+                v-model="uid"
+                label="$ Your ID:"
+                class="text-field"
+                color="black"
+                outlined dark
+              ></v-text-field>
+              <v-text-field
+                v-model="pass"
+                label="$ Your Password:"
+                class="text-field"
+                color="black"
+                outlined dark
+              ></v-text-field>
+          </v-form>
+
+
+          <div
+            class="amra pt-8 pb-2"
+            style="display: flex; justify-content: center"
+          >
+            <v-btn
+              class="submit mb-10 text-h6 font-weight-black mr-2"
+              color="#a5e5d4"
+              @click="fun()"
+              :loading="loader"
+              :disabled="loader"
+              large
+              rounded
+              outlined
+            >
+              Login
+              <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+              <template v-slot:loader>
+                <v-icon class="custom-loader" light>mdi-cached</v-icon>
+              </template>
+            </v-btn>
+          </div>
         </div>
       </div>
+      <v-snackbar v-model="snackbar" :timeout="timeout">
+        {{ snacktext }}
+        <template v-slot:action="{ attrs }">
+          <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
     </div>
-    <v-snackbar v-model="snackbar" :timeout="timeout">
-      {{ snacktext }}
-      <template v-slot:action="{ attrs }">
-        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <span v-if="never == true"> <Ques :user_name="uid"/> </span>  
   </div>
 </template>
 
 <script>
 import GlitchedWriter, { glyphs } from "glitched-writer";
 import Timer from "@/components/Timer2.vue";
+import Ques from '@/components/Ques.vue';
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   data() {
@@ -74,13 +102,15 @@ export default {
       uid: "",
       pass: "",
       verified : false,
+      never: 0
     };
   },
   components: {
-    Timer,
+    Timer, Ques
   },
   methods: {
     fun() {
+      console.log(this.uid, this.pass);
       let apibody = {
         uid: this.uid,
         pass: this.pass,
@@ -107,20 +137,16 @@ export default {
             return;
           }
           this.verified = true;
+          let main = document.getElementById('mymain');
+          main.removeChild(main.firstElementChild);
+          this.never = 1;
           console.log(res);
         });
     },
-    next() {
-      // var ok = check()
-      var ok = 1;
-      this.show_time = 1;
-      document.getElementById("glitched-writer").style.top = "25px";
-      if (ok) {
-        console.log("hurray");
-      }
-    },
   },
   mounted() {
+          //     let main = document.getElementById('mymain');
+          // main.removeChild(main.firstElementChild);
     const writer = new GlitchedWriter("#glitched-writer", "encrypted");
     writer.options.extend({
       glyphs: glyphs.letterlike,
@@ -151,316 +177,6 @@ export default {
 };
 </script>
 
-
-
-
-<style lang="scss" scoped>
-.custom-loader {
-  animation: loader 1s infinite;
-}
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.submit:hover {
-  background-color: black !important;
-  color: rgb(146, 228, 255) !important;
-}
-
-.v-btn {
-  text-transform: none !important;
-}
-
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-@font-face {
-  font-family: fkpieceofshit;
-  src: url("../assets/VCR_OSD_MONO.ttf");
-}
-
-$light-blue: #a5e5d4;
-$blue: #42c3c8;
-$pink: #d93da5;
-$black: #1d1e22;
-@mixin text-shadow($color) {
-  text-shadow: 2px 4px 10px rgba($color, 0.5);
-}
-@mixin text-shadow-small($color) {
-  text-shadow: 1px 3px 6px rgba($color, 0.5);
-}
-@mixin font-family {
-  // font-family: "M PLUS 1p", "Open Sans", sans-serif;
-  font-family: "fkpieceofshit";
-}
-
-#welcome {
-  
-  
-}
-
-#glitched-writer {
-  // padding: 30px;
-  font-size: 100px !important;
-  color: $light-blue;
-  will-change: contents, height, width;
-  text-transform: uppercase;
-  @include font-family();
-  @include text-shadow($light-blue);
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  &::after,
-  &::before {
-    content: attr(data-gw-string);
-    position: absolute;
-    opacity: 0;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: 30px;
-    overflow: hidden;
-    white-space: nowrap;
-    color: $blue;
-    will-change: contents, width;
-  }
-  &::before {
-    z-index: -1;
-    color: $pink;
-  }
-  &.gw-writing {
-    animation: glitch-skew 1s steps(10, end) infinite alternate-reverse;
-
-    .gw-ghosts,
-    .gw-glitched {
-      opacity: 0.6;
-      animation: glitch-blink 1s steps(20, end) infinite alternate-reverse;
-    }
-
-    &::after,
-    &::before {
-      opacity: 1;
-    }
-    &::after {
-      animation: glitch-animation-1 1.5s steps(20, end) infinite
-        alternate-reverse;
-    }
-    &::before {
-      animation: glitch-animation-2 2s steps(20, end) infinite alternate-reverse;
-    }
-  }
-  @keyframes glitch-skew {
-    $steps: 10;
-
-    @for $i from 0 through $steps {
-      #{percentage($i * 1 / $steps)} {
-        transform: skew(random(10) - 5 + deg);
-      }
-    }
-  }
-  @keyframes glitch-blink {
-    $steps: 20;
-
-    @for $i from 0 through $steps {
-      #{percentage($i * 1 / $steps)} {
-        opacity: random(10) / 10;
-      }
-    }
-  }
-  @keyframes glitch-animation-1 {
-    $steps: 20;
-
-    @for $i from 0 through $steps {
-      #{percentage($i * 1 / $steps)} {
-        clip: rect(random(100) + px, 1000px, random(100) + px, 0);
-        transform: skew(random(16) - 8 + deg) translatex(random(30) - 15 + px);
-      }
-    }
-  }
-  @keyframes glitch-animation-2 {
-    $steps: 20;
-
-    @for $i from 0 through $steps {
-      #{percentage($i * 1 / $steps)} {
-        clip: rect(random(100) + px, 1000px, random(100) + px, 0);
-        transform: skew(random(10) - 5 + deg) translatex(random(20) - 10 + px);
-      }
-    }
-  }
-}
-
-#inp {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
-}
-
-#child-inp *:not(.custom-loader) {
-  display: block;
-}
-
-#ic:hover {
-  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
-}
-
-.input {
-  // position: absolute;
-  bottom: 30px;
-  max-width: 340px;
-  height: auto;
-  padding: 0 8px;
-  background: transparent;
-  outline: none;
-  border: 1px solid $light-blue;
-  caret-color: $blue;
-  color: $light-blue;
-  font-weight: 300;
-  font-size: 30px;
-  @include text-shadow-small($light-blue);
-  @include font-family;
-
-  @keyframes an {
-    0%,
-    50% {
-      ph: visible;
-    }
-    51%,
-    100% {
-      ph: hidden;
-    }
-  }
-
-  animation: an 0.9s infinite alternate;
-  transition: border-color 0.1s, color 0.1s, text-shadow 0.1s,
-    transform 0.3s 1.2s;
-
-  &::placeholder {
-    color: $light-blue;
-    transition: opacity 0.1s, color 0.1s;
-    visibility: var(ph);
-
-    @include text-shadow-small($light-blue);
-  }
-  &:focus,
-  &:hover {
-    border-color: $blue;
-    color: $blue;
-
-    @include text-shadow-small($blue);
-
-    &::placeholder {
-      color: $blue;
-    }
-    &::selection {
-      background: $blue;
-    }
-    & ~ .input--shadow {
-      border-color: $blue;
-    }
-  }
-  &:focus::placeholder {
-    opacity: 0;
-  }
-  &:disabled {
-    transform: translatey(70px);
-
-    & ~ .input--shadow {
-      transform: translatey(70px);
-    }
-  }
-  &--shadow {
-    position: absolute;
-    // top: 100%;
-    // left: 30.5%;
-    bottom: calc(30px - 4px);
-    transform: translatex(2px);
-    filter: blur(4px);
-    opacity: 0.5;
-    width: 340px;
-    height: auto;
-    border: 2px solid $light-blue;
-    pointer-events: none;
-    transition: transform 0.3s 1.2s;
-  }
-}
-
-@media only screen and(max-width: 1350px) {
-  #glitched-writer {
-    font-size: 80px !important;
-  }
-}
-
-@media only screen and(max-width: 1100px) {
-  #glitched-writer {
-    font-size: 70px !important;
-  }
-}
-
-@media only screen and(max-width: 950px) {
-  #glitched-writer {
-    font-size: 60px !important;
-  }
-}
-
-@media only screen and(max-width: 950px) {
-  #glitched-writer {
-    font-size: 60px !important;
-  }
-}
-
-@media only screen and(max-width: 820px) {
-  #glitched-writer {
-    font-size: 45px !important;
-  }
-}
-.mymain {
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  font-family: "VCR OSD Mono", sans-serif !important;
-}
+<style lang="scss"> 
+  @import './style.scss'
 </style>

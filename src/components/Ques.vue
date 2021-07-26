@@ -1,5 +1,6 @@
 <template>
   <div class="body">
+<<<<<<< HEAD:src/views/Home2.vue
     <div class="mein pa-3 pa-sm-5">
       <v-row dense>
         <v-col class="pinit">
@@ -26,6 +27,45 @@
               class="mdibtn"
               @click="next()"
               ><v-icon class="mdicon"> mdi-chevron-right </v-icon></v-btn
+=======
+
+    <v-container  id="mein" class="mein">
+      <v-container fluid>
+        <v-row dense>
+          <v-col class="pinit">
+            <Timer class="init" />
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col class="last">
+            <div class="btns d-flex pb-1">
+              <v-btn fab color="transparent" id="back" elevation="1"
+                ><v-icon size="50px" @click="back()">
+                  mdi-chevron-left
+                </v-icon></v-btn
+              >
+              <v-btn fab color="transparent" id="next" elevation="1"
+                ><v-icon size="50px" @click="next()">
+                  mdi-chevron-right
+                </v-icon></v-btn
+              >
+            </div>
+          </v-col>
+        </v-row>
+
+        <div class="line"></div>
+        <v-carousel
+          class="carou"
+          hide-delimiters
+          :show-arrows="false"
+          height=""
+          v-model="ind"
+        >
+          <v-carousel-item v-for="(item, i) in questions" :key="i">
+            <v-row
+              justify="start"
+              class="ques-text pb-1 px-3 pt-9 text-md-h5 text-h6"
+              id="ques_no"
+>>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
             >
           </div>
         </v-col>
@@ -84,6 +124,7 @@
               :loading="loader"
               :disabled="loader"
             >
+<<<<<<< HEAD:src/views/Home2.vue
               Submit
               <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
               <template v-slot:loader>
@@ -98,6 +139,52 @@
         </v-carousel-item>
       </v-carousel>
     </div>
+=======
+              {{ item.ques }}
+            </v-row>
+
+            <v-row class="pr_row" v-if="item.img != null">
+              <div class="parent_img mb-2 mt-2">
+                <img class="pr_img" :src="item.img" />
+              </div>
+            </v-row>
+
+            <v-row justify="start">
+              <v-textarea
+                label="Write your answer"
+                outlined
+                class="txt px-3"
+                rows="4"
+              ></v-textarea>
+            </v-row>
+
+            <v-row justify="end" class="px-2">
+              <v-btn
+                class="submit mb-10 text-subtitle-1 font-weight-black mr-2"
+                color="transparent"
+                elevation="6"
+                @click = "fun()"
+                rounded
+                large
+                :loading="loader"
+                :disabled="loader"
+              >
+                Submit
+                <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+                <template v-slot:loader>
+                  <span class="custom-loader">
+                    <v-icon light>mdi-cached</v-icon>
+                  </span>
+                </template>
+              </v-btn>
+
+              <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
+            </v-row>
+          </v-carousel-item>
+        </v-carousel>
+      </v-container>
+    </v-container>
+>>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
 
     <v-btn
       fab
@@ -109,18 +196,30 @@
       <v-icon class="mdicon"> mdi-arrow-right </v-icon>
     </v-btn>
 
-    <v-navigation-drawer v-model="ques_bar" absolute temporary left>
+    <v-navigation-drawer v-model="ques_bar" absolute temporary left class="nav-drawer">
+      
+      <div class="logout">
+        <!-- eta responsive korte hbe -->
+        <div class="info-text text-h5 mt-8"> {{ user_name }} <v-icon size="40px" class="ic"> mdi-ninja </v-icon> </div>
+        <v-btn class="lgout my-8" elevation="" @click="logout()" rounded> Logout </v-btn>
+      </div>
+        <v-divider />
+
       <button
         v-for="index in questions.length"
         :key="index"
-        class="ques-btn"
+        :class="questions[index-1].attempted == 1 ? 'ques-btn-attempt' : 'ques-btn'"
         large
         @click="do_it(index - 1)"
       >
+<<<<<<< HEAD:src/views/Home2.vue
         <span v-if="questions[index - 1].attempted == 1">
           <div id="speci">Question {{ index }}</div>
         </span>
         <span v-else> Question {{ index }} </span>
+=======
+         Question {{ index }}
+>>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
       </button>
     </v-navigation-drawer>
 
@@ -139,9 +238,13 @@
 
 <script>
 import Timer from "@/components/Timer3.vue";
+var base_link = "https://pihacks-btc-api.herokuapp.com";
 
 export default {
   components: { Timer },
+  props: {
+    user_name: String
+  },
   data() {
     return {
       img: 1,
@@ -180,8 +283,38 @@ export default {
       ],
     };
   },
+  mounted() {
+    console.log(this.user_name);
+    // this.user_name = this.user_name.substr(0, this.user_name.length-5);
+  },
   methods: {
+<<<<<<< HEAD:src/views/Home2.vue
     fun() {
+=======
+    logout(){
+      let code = 0;
+      fetch(base_link + "/btc", {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((data) => {
+        code = data.status;
+        return data.json();
+      })
+      .then((res) => {
+        if(code != 200 || res.status != "success") {
+          console.log("Logout failed");
+          return;
+        }
+        console.log("Succesfully Logged out", res);
+        window.location.reload();
+      })
+    },
+    fun(){
+>>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
       this.loader = true;
       setTimeout(() => {
         this.loader = false;
@@ -205,6 +338,48 @@ export default {
 </script>
 
 <style>
+<<<<<<< HEAD:src/views/Home2.vue
+=======
+
+.v-application .text-h4{
+  font-family: "fkpieceofshit" !important;
+}
+
+.ic{
+  align-self: center;
+}
+
+.nav-drawer{
+  background-color: rgb(32, 32, 32) !important;
+}
+
+.lgout{
+  color: rgb(0, 0, 0) !important;
+  background-color: rgb(175, 181, 190) !important;
+  font-size: 18px !important;
+  width: 110px;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+  font-weight: 900 !important;
+  height: 40px !important;
+}
+
+.lgout:hover {
+  color: rgb(146, 228, 255) !important;
+  background-color: black !important;
+}
+
+.logout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.v-btn{
+  text-transform: none !important; 
+}
+
+>>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
 @font-face {
   font-family: fkpieceofshit;
   src: url("../assets/VCR_OSD_MONO.ttf");
@@ -217,7 +392,11 @@ export default {
 #speci {
   width: 100%;
   height: 100%;
-  background-color: rgb(98, 0, 211);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(27, 77, 158);
 }
 
 .custom-loader {
@@ -350,16 +529,29 @@ export default {
 .ques-btn {
   font-size: 21px;
   width: 100%;
-  padding: 15px;
   font-weight: 600;
   text-align: center;
   border-bottom: 1px double grey;
-  /* box-shadow: 2px 2px rgb(66, 64, 64); */
   background-color: rgb(31, 31, 31);
+  height: 45px;
 }
 
 .ques-btn:hover {
-  background-color: rgb(48, 101, 172);
+  background-color: rgb(9, 11, 14) !important;
+}
+
+.ques-btn-attempt {
+  font-size: 21px;
+  width: 100%;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px double grey;
+  background-color: rgb(27, 77, 158);
+  height: 45px;
+}
+
+.ques-btn-attempt:hover {
+  background-color: rgb(9, 11, 14) !important;
 }
 
 .ques-text {
@@ -370,7 +562,7 @@ export default {
   /* font-family: "M PLUS 1p", "Open Sans", sans-serif !important; */
   /* font-family: "fkpieceofshit" !important; */
   text-shadow: 2px 4px 10px rgb(165 229 212 / 50%) !important;
-  /* text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0) !important; */
+  /* text-shadow: 0 0 20px rgb(37, 38, 39),  0 0 20px rgba(10, 175, 230, 0) !important; */
 }
 
 .txt {
