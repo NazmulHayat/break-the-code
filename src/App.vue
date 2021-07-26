@@ -1,17 +1,16 @@
 <template>
   <v-app id="app">
     <div class="animated" />
-    
-      <router-view />
-    <Footer class="foot"/>
+    <router-view />
+    <Footer class="foot" />
   </v-app>
 </template>
 
 <script>
-import Footer from './components/Footer.vue'
+import Footer from "./components/Footer.vue";
 export default {
   name: "App",
-  components: {Footer},
+  components: { Footer },
   data: () => ({
     //
   }),
@@ -19,20 +18,16 @@ export default {
 </script>
 
 <style>
-.foot{
-  position: absolute;
-  bottom: 0;
-}
 @font-face {
   font-family: fkpieceofshit;
-  src: url('./assets/VCR_OSD_MONO.ttf');
+  src: url("./assets/VCR_OSD_MONO.ttf");
 }
 
 html {
   overflow-y: auto !important;
 }
 
-.animated{
+.animated {
   width: 100vw;
   border-bottom: 2px solid rgb(68, 105, 116);
   filter: brightness(60%);

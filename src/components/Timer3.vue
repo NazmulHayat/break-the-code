@@ -26,7 +26,7 @@ export default {
         document.getElementById("seconds").innerText =
           Math.floor((distance % minute) / second) + "sec";
         //seconds
-      }, 0);
+      }, 1);
   },
 };
 </script>
