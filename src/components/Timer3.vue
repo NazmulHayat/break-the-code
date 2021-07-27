@@ -1,33 +1,41 @@
 <template>
   <div class="timer-text">
-    <span id="minutes" class="pr-2"></span>
-    <span id="seconds"></span>
+    <span id="Qminutes" class="pr-2"></span>
+    <span id="Qseconds"></span>
   </div>
 </template>
 
 
 <script>
 export default {
+  props: {
+    endTime: {
+      type: Number,
+      default: 0,
+    },
+  },
   mounted() {
     const second = 1000,
       minute = second * 60,
       hour = minute * 60;
-    let countDown = Date.now() + 1000 * 60 * 60 ,
-      x = setInterval(function () {
-        let distance = countDown - Date.now();
+    let x = setInterval(()=> {
+      if (this.endTime == 0) {
+        return;
+      }
+      let distance = this.endTime - Date.now();
         if (distance <= 0) {
           clearInterval(x);
-          document.getElementById("minutes").innerText = "Contest";
-          document.getElementById("seconds").innerText = "ended";
+          document.getElementById("Qminutes").innerText = "Contest";
+          document.getElementById("Qseconds").innerText = "ended";
           return;
         }
-        document.getElementById("minutes").innerText =
+        document.getElementById("Qminutes").innerText =
           Math.floor((distance % hour) / minute) + "min";
-        document.getElementById("seconds").innerText =
+        document.getElementById("Qseconds").innerText =
           Math.floor((distance % minute) / second) + "sec";
         //seconds
-      }, 1);
-  },
+      }, 5);
+  }
 };
 </script>
 

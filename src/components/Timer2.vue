@@ -3,10 +3,10 @@
     <h1>Before Start</h1>
     <div id="countdown">
       <ul class="mx-16">
-        <li><span id="days"></span>days</li>
-        <li><span id="hours"></span>Hours</li>
-        <li><span id="minutes"></span>Minutes</li>
-        <li><span id="seconds"></span>Seconds</li>
+        <li id="Hdays"></li>
+        <li id="Hhours"></li>
+        <li id="Hminutes"></li>
+        <li id="Hseconds"></li>
       </ul>
     </div>
   </div>
@@ -15,31 +15,43 @@
 
 <script>
 export default {
+  data() {
+    return {};
+  },
+  props: {
+    start: {
+      type: Number,
+      default: 0,
+    },
+  },
   mounted() {
     const second = 1000,
       minute = second * 60,
-      hour = minute * 60, day=hour * 24;
-    let countDown = Date.now() + 100000000 * 10 * 1,
-      x = setInterval(function () {
-        let distance = countDown - Date.now();
-        if (distance <= 0) {
-          clearInterval(x);
-          document.getElementById("days").innerText = 0;
-          document.getElementById("hours").innerText = 0;
-          document.getElementById("minutes").innerText = 0;
-          document.getElementById("seconds").innerText = 0;
-          return;
-        }
-        document.getElementById("days").innerText = Math.floor(distance / day);
-        document.getElementById("hours").innerText = 
-          Math.floor((distance % day) / hour);
-        document.getElementById("minutes").innerText =
-          Math.floor((distance % hour) / minute);
-        document.getElementById("seconds").innerText =
-          Math.floor((distance % minute) / second);
-        //seconds
-      }, 0);
-  },
+      hour = minute * 60,
+      day = hour * 24;
+    let x = setInterval(()=> {
+      if (this.start == 0) {
+        return;
+      }
+      let distance = this.start - Date.now();
+      if (distance <= 0) {
+        clearInterval(x);
+        document.getElementById("Hdays").innerText = 0;
+        document.getElementById("Hhours").innerText = 0;
+        document.getElementById("Hminutes").innerText = 0;
+        document.getElementById("Hseconds").innerText = 0;
+        return;
+      }
+      document.getElementById("Hdays").innerText = Math.floor(distance / day) + " Days";
+      document.getElementById("Hhours").innerText =
+        Math.floor((distance % day) / hour) + " Hours";
+      document.getElementById("Hminutes").innerText =
+        Math.floor((distance % hour) / minute) + " Minutes";
+      document.getElementById("Hseconds").innerText =
+        Math.floor((distance % minute) / second) + " Seconds";
+      //seconds
+    }, 1);
+  }
 };
 </script>
 

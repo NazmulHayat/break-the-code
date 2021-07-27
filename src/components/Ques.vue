@@ -3,7 +3,9 @@
     <div class="mein pa-3 pa-sm-5">
       <v-row dense>
         <v-col class="pinit">
-          <Timer class="init 
+          <Timer 
+          :endTime="endTime"
+          class="init 
           text-h5
           text-md-h4
           " />
@@ -154,6 +156,10 @@ export default {
   props: {
     user_name: String,
     questions:Array[Object],
+    endTime: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -216,7 +222,6 @@ export default {
           this.text=res.message;
           return;
         }
-        console.log(res);
         if(window.Storage != null)
         {
           window.localStorage.removeItem("uid");

@@ -10,7 +10,7 @@
         <v-icon
           class="pb-0 mx-2"
           type="button"
-          onclick="window.open('https://www.facebook.com/events/341277440774977/?active_tab=discussion', '_blank')"
+          onclick="window.open('mailto:pihacks21@gmail.com', '_blank')"
         >
           mdi-gmail
         </v-icon>

@@ -1,7 +1,6 @@
 <template>
   <div class="mymain" id="mymain">
     <div class="home_login" v-if="!this.verified">
-      <span v-if="show_time == 1"> <Timer /> </span>
       <div id="welcome">
         <div class="" id="glitched-writer"></div>
       </div>
@@ -65,7 +64,15 @@
         </template>
       </v-snackbar>
     </div>
-    <Ques v-show="verified" :user_name="uid" :questions="questions" />
+    <div v-show="verified">
+      <Timer :start="start" v-show="!started" />
+      <Ques
+        :user_name="uid"
+        v-show="started"
+        :questions="questions"
+        :endTime="start + length"
+      />
+    </div>
   </div>
 </template>
 
@@ -86,6 +93,10 @@ export default {
       pass: "",
       verified: false,
       questions: [],
+      start: 0,
+      presend: null,
+      length: null,
+      started: false,
     };
   },
   components: {
@@ -126,10 +137,10 @@ export default {
           if (window.Storage != null) {
             window.localStorage.setItem("uid", this.uid);
           }
-          if(this.verified) this.Status();
+          if (this.verified) this.Status();
         });
     },
-    Status(){
+    Status() {
       let code = 0;
       fetch(base_link + "/btc", {
         method: "GET",
@@ -147,15 +158,31 @@ export default {
           }
           if (res.verified == null) {
             window.localStorage.removeItem("uid");
-            window.localStorage.setItem("timedout", true);
+            if (Date.now() > res.start + res.length)
+              window.localStorage.setItem("contestend", true);
+            else window.localStorage.setItem("timedout", true);
             window.location.reload();
             return;
           }
-          if(res.status == 'running' || res.status== 'presend') {
+          if (res.qp != null) {
             this.questions = res.qp;
           }
+          this.start = res.start;
+          let diff = this.start - Date.now();
+          window.setTimeout(
+            () => {
+              this.started = true;
+            },
+            diff < 0 ? 0 : diff
+          );
+          let diff2 = diff - res.preSendTime;
+          if (diff2 >= 0)
+            window.setTimeout(() => {
+              this.Status();
+            }, diff2);
+          this.length = res.length;
         });
-    }
+    },
   },
   mounted() {
     if (!this.verified) {
@@ -181,10 +208,14 @@ export default {
         this.snacktext = "Successfully logged out";
         this.snackbar = true;
         window.localStorage.removeItem("loggedout");
+      } else if ( window.localStorage.getItem("contestend")) {
+        this.snacktext = "Contest has ended";
+        this.snackbar = true;
+        window.localStorage.removeItem("contestend");
       }
     }
-    if(this.verified) this.Status();
-  }
+    if (this.verified) this.Status();
+  },
 };
 </script>
 

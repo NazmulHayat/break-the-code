@@ -1,7 +1,9 @@
-1) Next, Back, Submit button - Done
-2) Password
-3) INFO
-4) Animation - Done, bug ase ekta
-5) Timer - Done 
-6) Improve button icons
-7) Navigation - Done
+timer
+timer responsive
+info button
+front page responsive
+ques center
+nav bar something
+email icon
+text too big
+snack is shit
