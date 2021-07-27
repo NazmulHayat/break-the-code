@@ -1,6 +1,5 @@
 <template>
   <div class="body">
-<<<<<<< HEAD:src/views/Home2.vue
     <div class="mein pa-3 pa-sm-5">
       <v-row dense>
         <v-col class="pinit">
@@ -27,45 +26,6 @@
               class="mdibtn"
               @click="next()"
               ><v-icon class="mdicon"> mdi-chevron-right </v-icon></v-btn
-=======
-
-    <v-container  id="mein" class="mein">
-      <v-container fluid>
-        <v-row dense>
-          <v-col class="pinit">
-            <Timer class="init" />
-          </v-col>
-          <v-spacer></v-spacer>
-          <v-col class="last">
-            <div class="btns d-flex pb-1">
-              <v-btn fab color="transparent" id="back" elevation="1"
-                ><v-icon size="50px" @click="back()">
-                  mdi-chevron-left
-                </v-icon></v-btn
-              >
-              <v-btn fab color="transparent" id="next" elevation="1"
-                ><v-icon size="50px" @click="next()">
-                  mdi-chevron-right
-                </v-icon></v-btn
-              >
-            </div>
-          </v-col>
-        </v-row>
-
-        <div class="line"></div>
-        <v-carousel
-          class="carou"
-          hide-delimiters
-          :show-arrows="false"
-          height=""
-          v-model="ind"
-        >
-          <v-carousel-item v-for="(item, i) in questions" :key="i">
-            <v-row
-              justify="start"
-              class="ques-text pb-1 px-3 pt-9 text-md-h5 text-h6"
-              id="ques_no"
->>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
             >
           </div>
         </v-col>
@@ -124,7 +84,6 @@
               :loading="loader"
               :disabled="loader"
             >
-<<<<<<< HEAD:src/views/Home2.vue
               Submit
               <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
               <template v-slot:loader>
@@ -139,52 +98,6 @@
         </v-carousel-item>
       </v-carousel>
     </div>
-=======
-              {{ item.ques }}
-            </v-row>
-
-            <v-row class="pr_row" v-if="item.img != null">
-              <div class="parent_img mb-2 mt-2">
-                <img class="pr_img" :src="item.img" />
-              </div>
-            </v-row>
-
-            <v-row justify="start">
-              <v-textarea
-                label="Write your answer"
-                outlined
-                class="txt px-3"
-                rows="4"
-              ></v-textarea>
-            </v-row>
-
-            <v-row justify="end" class="px-2">
-              <v-btn
-                class="submit mb-10 text-subtitle-1 font-weight-black mr-2"
-                color="transparent"
-                elevation="6"
-                @click = "fun()"
-                rounded
-                large
-                :loading="loader"
-                :disabled="loader"
-              >
-                Submit
-                <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
-                <template v-slot:loader>
-                  <span class="custom-loader">
-                    <v-icon light>mdi-cached</v-icon>
-                  </span>
-                </template>
-              </v-btn>
-
-              <!-- <v-btn class="submit text-h6 font-weight-black"  color="transparent"> Next <v-icon class="ml-2"> mdi-arrow-right </v-icon> </v-btn> -->
-            </v-row>
-          </v-carousel-item>
-        </v-carousel>
-      </v-container>
-    </v-container>
->>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
 
     <v-btn
       fab
@@ -212,14 +125,10 @@
         large
         @click="do_it(index - 1)"
       >
-<<<<<<< HEAD:src/views/Home2.vue
         <span v-if="questions[index - 1].attempted == 1">
           <div id="speci">Question {{ index }}</div>
         </span>
         <span v-else> Question {{ index }} </span>
-=======
-         Question {{ index }}
->>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
       </button>
     </v-navigation-drawer>
 
@@ -288,9 +197,6 @@ export default {
     // this.user_name = this.user_name.substr(0, this.user_name.length-5);
   },
   methods: {
-<<<<<<< HEAD:src/views/Home2.vue
-    fun() {
-=======
     logout(){
       let code = 0;
       fetch(base_link + "/btc", {
@@ -314,7 +220,6 @@ export default {
       })
     },
     fun(){
->>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
       this.loader = true;
       setTimeout(() => {
         this.loader = false;
@@ -338,8 +243,6 @@ export default {
 </script>
 
 <style>
-<<<<<<< HEAD:src/views/Home2.vue
-=======
 
 .v-application .text-h4{
   font-family: "fkpieceofshit" !important;
@@ -379,7 +282,6 @@ export default {
   text-transform: none !important; 
 }
 
->>>>>>> 669ab2464ca77f8ed1a89d8dc4f9f5393a59e8e8:src/components/Ques.vue
 @font-face {
   font-family: fkpieceofshit;
   src: url("../assets/VCR_OSD_MONO.ttf");

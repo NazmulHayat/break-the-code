@@ -1,6 +1,6 @@
 <template>
   <div class="mymain" id="mymain">
-    <div class="home_login">
+    <div class="home_login" v-if="!this.verified">
       <span v-if="show_time == 1"> <Timer /> </span>
       <div id="welcome">
         <div class="" id="glitched-writer"></div>
@@ -26,51 +26,51 @@
           <!-- <button id="proceed" class="pl-2" type="button" @click="next()">
             Next
           </button> -->
-          
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-            class="form"
-          >
-              <v-text-field
-                v-model="uid"
-                label="$ Your ID:"
-                class="text-field"
-                color="black"
-                outlined dark
-              ></v-text-field>
-              <v-text-field
-                v-model="pass"
-                label="$ Your Password:"
-                class="text-field"
-                color="black"
-                outlined dark
-              ></v-text-field>
-          </v-form>
 
-
-          <div
-            class="amra pt-8 pb-2"
-            style="display: flex; justify-content: center"
-          >
-            <v-btn
-              class="submit mb-10 text-h6 font-weight-black mr-2"
-              color="#a5e5d4"
-              @click="fun()"
-              :loading="loader"
+          <v-form ref="form" class="form">
+            <v-text-field
+              v-model="uid"
+              label="$ Your ID:"
+              class="text-field"
+              color="black"
               :disabled="loader"
-              large
-              rounded
               outlined
+              dark
+              v-on:keyup.enter="focusNext()"
+            ></v-text-field>
+            <v-text-field
+              v-model="pass"
+              label="$ Your Password:"
+              class="text-field"
+              color="black"
+              outlined
+              dark
+              :disabled="loader"
+              id="password-field"
+              v-on:keyup.enter="fun()"
+            ></v-text-field>
+          </v-form>
+            <div
+              class="amra pt-8 pb-2"
+              style="display: flex; justify-content: center"
             >
-              Login
-              <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
-              <template v-slot:loader>
-                <v-icon class="custom-loader" light>mdi-cached</v-icon>
-              </template>
-            </v-btn>
-          </div>
+              <v-btn
+                class="submit mb-10 text-h6 font-weight-black mr-2"
+                color="#a5e5d4"
+                :loading="loader"
+                :disabled="loader"
+                large
+                rounded
+                outlined
+                @click="fun()"
+              >
+                Login
+                <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+                <template v-slot:loader>
+                  <v-icon class="custom-loader" light>mdi-cached</v-icon>
+                </template>
+              </v-btn>
+            </div>
         </div>
       </div>
       <v-snackbar v-model="snackbar" :timeout="timeout">
@@ -82,14 +82,14 @@
         </template>
       </v-snackbar>
     </div>
-    <span v-if="never == true"> <Ques :user_name="uid"/> </span>  
+    <Ques v-if="verified == true" :user_name="uid" />
   </div>
 </template>
 
 <script>
 import GlitchedWriter, { glyphs } from "glitched-writer";
 import Timer from "@/components/Timer2.vue";
-import Ques from '@/components/Ques.vue';
+import Ques from "@/components/Ques.vue";
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   data() {
@@ -101,16 +101,18 @@ export default {
       snacktext: "",
       uid: "",
       pass: "",
-      verified : false,
-      never: 0
+      verified: false,
     };
   },
   components: {
-    Timer, Ques
+    Timer,
+    Ques,
   },
   methods: {
+      focusNext() {
+        document.getElementById('password-field').focus();
+      },
     fun() {
-      console.log(this.uid, this.pass);
       let apibody = {
         uid: this.uid,
         pass: this.pass,
@@ -137,24 +139,35 @@ export default {
             return;
           }
           this.verified = true;
-          let main = document.getElementById('mymain');
-          main.removeChild(main.firstElementChild);
-          this.never = 1;
-          console.log(res);
+          if(window.Storage != null){
+            window.localStorage.setItem("uid",this.uid);
+          }
         });
     },
   },
   mounted() {
-          //     let main = document.getElementById('mymain');
-          // main.removeChild(main.firstElementChild);
-    const writer = new GlitchedWriter("#glitched-writer", "encrypted");
-    writer.options.extend({
-      glyphs: glyphs.letterlike,
-    });
-    const phrases = ["Welcome to", "Break the Code"];
-    writer.queueWrite(phrases, 1000, false);
+    if(!this.verified){
+      const writer = new GlitchedWriter("#glitched-writer", "encrypted");
+      writer.options.extend({
+        glyphs: glyphs.letterlike,
+      });
+      const phrases = ["Welcome to", "Break the Code"];
+      writer.queueWrite(phrases, 1000, false);
+    }
   },
   created() {
+    if(window.Storage != null) {
+      let uid = localStorage.getItem("uid");
+      if(uid != null) { 
+        this.uid=uid;
+        this.verified = true;
+      }
+      else if(window.localStorage.getItem("timedout")) {
+        this.snacktext= "Session timed out";
+        this.snackbar= true;
+        window.localStorage.removeItem("timedout");
+      }
+    }
     let code = 0;
     fetch(base_link + "/btc", {
       method: "GET",
@@ -170,13 +183,16 @@ export default {
           this.snackbar = true;
           return;
         }
-        console.log(res);
-        if(res.verified != null) this.verified = true;
+        if (res.verified == null && this.verified){
+          window.localStorage.removeItem("uid");
+          window.localStorage.setItem("timedout", true);
+          window.location.reload();
+        }
       });
   },
 };
 </script>
 
-<style lang="scss"> 
-  @import './style.scss'
+<style lang="scss">
+@import "./style.scss";
 </style>
