@@ -36,6 +36,7 @@
               :disabled="loader"
               outlined
               dark
+              autocomplete="username"
               v-on:keyup.enter="focusNext()"
             ></v-text-field>
             <v-text-field
@@ -47,6 +48,8 @@
               dark
               :disabled="loader"
               id="password-field"
+              autocomplete="new-password"
+              type="password"
               v-on:keyup.enter="fun()"
             ></v-text-field>
           </v-form>
