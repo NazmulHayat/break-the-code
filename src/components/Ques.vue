@@ -152,7 +152,8 @@ var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   components: { Timer },
   props: {
-    user_name: String
+    user_name: String,
+    questions:Array[Object],
   },
   data() {
     return {
@@ -163,7 +164,7 @@ export default {
       snackbar: false,
       text: "Your answer has been submitted.",
       timeout: 2000,
-      questions: [
+      q: [
         {
           ques: "What is an apple?",
           img: "https://picsum.photos/1600/500",
@@ -193,7 +194,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.user_name);
     // this.user_name = this.user_name.substr(0, this.user_name.length-5);
   },
   methods: {
@@ -212,10 +212,16 @@ export default {
       })
       .then((res) => {
         if(code != 200 || res.status != "success") {
-          console.log("Logout failed");
+          this.snackbar= true;
+          this.text=res.message;
           return;
         }
-        console.log("Succesfully Logged out", res);
+        console.log(res);
+        if(window.Storage != null)
+        {
+          window.localStorage.removeItem("uid");
+          window.localStorage.setItem("loggedout", true);
+        }
         window.location.reload();
       })
     },
@@ -234,11 +240,10 @@ export default {
       this.ind = (this.questions.length + this.ind - 1) % this.questions.length;
     },
     do_it(id) {
-      console.log(id);
       this.ques_bar = !this.ques_bar;
       this.ind = id;
     },
-  },
+  }
 };
 </script>
 
@@ -357,7 +362,7 @@ export default {
 
 .body {
   height: 100%;
-  display: flex !important;
+  display: flex;
   justify-content: center;
 }
 

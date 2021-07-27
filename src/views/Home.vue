@@ -7,26 +7,6 @@
       </div>
       <div v-if="show_time == 0" id="inp">
         <div id="child-inp" class="mx-16">
-          <!-- <input
-            class="input"
-            placeholder="$ Your ID"
-            autocomplete="off"
-            v-model="uid"
-            v-on:keyup.enter="$event.target.nextElementSibling.focus()"
-          />
-          <input
-            class="input mt-6"
-            placeholder="$ Your Password"
-            autocomplete="off"
-            type="password"
-            v-model="pass"
-            v-on:keyup.enter="fun()"
-          /> -->
-          <!-- <div class="input--shadow"></div> -->
-          <!-- <button id="proceed" class="pl-2" type="button" @click="next()">
-            Next
-          </button> -->
-
           <v-form ref="form" class="form">
             <v-text-field
               v-model="uid"
@@ -48,32 +28,32 @@
               dark
               :disabled="loader"
               id="password-field"
-              autocomplete="new-password"
+              autocomplete="off"
               type="password"
               v-on:keyup.enter="fun()"
             ></v-text-field>
           </v-form>
-            <div
-              class="amra pt-8 pb-2"
-              style="display: flex; justify-content: center"
+          <div
+            class="amra pt-8 pb-2"
+            style="display: flex; justify-content: center"
+          >
+            <v-btn
+              class="submit mb-10 text-h6 font-weight-black mr-2"
+              color="#a5e5d4"
+              :loading="loader"
+              :disabled="loader"
+              large
+              rounded
+              outlined
+              @click="fun()"
             >
-              <v-btn
-                class="submit mb-10 text-h6 font-weight-black mr-2"
-                color="#a5e5d4"
-                :loading="loader"
-                :disabled="loader"
-                large
-                rounded
-                outlined
-                @click="fun()"
-              >
-                Login
-                <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
-                <template v-slot:loader>
-                  <v-icon class="custom-loader" light>mdi-cached</v-icon>
-                </template>
-              </v-btn>
-            </div>
+              Login
+              <!-- <v-icon class="mr-2 pl-2"> mdi-telegram </v-icon> -->
+              <template v-slot:loader>
+                <v-icon class="custom-loader" light>mdi-cached</v-icon>
+              </template>
+            </v-btn>
+          </div>
         </div>
       </div>
       <v-snackbar v-model="snackbar" :timeout="timeout">
@@ -85,7 +65,7 @@
         </template>
       </v-snackbar>
     </div>
-    <Ques v-if="verified == true" :user_name="uid" />
+    <Ques v-show="verified" :user_name="uid" :questions="questions" />
   </div>
 </template>
 
@@ -105,6 +85,7 @@ export default {
       uid: "",
       pass: "",
       verified: false,
+      questions: [],
     };
   },
   components: {
@@ -112,9 +93,9 @@ export default {
     Ques,
   },
   methods: {
-      focusNext() {
-        document.getElementById('password-field').focus();
-      },
+    focusNext() {
+      document.getElementById("password-field").focus();
+    },
     fun() {
       let apibody = {
         uid: this.uid,
@@ -142,14 +123,42 @@ export default {
             return;
           }
           this.verified = true;
-          if(window.Storage != null){
-            window.localStorage.setItem("uid",this.uid);
+          if (window.Storage != null) {
+            window.localStorage.setItem("uid", this.uid);
           }
+          if(this.verified) this.Status();
         });
     },
+    Status(){
+      let code = 0;
+      fetch(base_link + "/btc", {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((data) => {
+          code = data.status;
+          return data.json();
+        })
+        .then((res) => {
+          if (code != 200) {
+            this.snacktext = res.status + ": " + res.message;
+            this.snackbar = true;
+            return;
+          }
+          if (res.verified == null) {
+            window.localStorage.removeItem("uid");
+            window.localStorage.setItem("timedout", true);
+            window.location.reload();
+            return;
+          }
+          if(res.status == 'running' || res.status== 'presend') {
+            this.questions = res.qp;
+          }
+        });
+    }
   },
   mounted() {
-    if(!this.verified){
+    if (!this.verified) {
       const writer = new GlitchedWriter("#glitched-writer", "encrypted");
       writer.options.extend({
         glyphs: glyphs.letterlike,
@@ -159,40 +168,23 @@ export default {
     }
   },
   created() {
-    if(window.Storage != null) {
+    if (window.Storage != null) {
       let uid = localStorage.getItem("uid");
-      if(uid != null) { 
-        this.uid=uid;
+      if (uid != null) {
+        this.uid = uid;
         this.verified = true;
-      }
-      else if(window.localStorage.getItem("timedout")) {
-        this.snacktext= "Session timed out";
-        this.snackbar= true;
+      } else if (window.localStorage.getItem("timedout")) {
+        this.snacktext = "Session timed out";
+        this.snackbar = true;
         window.localStorage.removeItem("timedout");
+      } else if (window.localStorage.getItem("loggedout")) {
+        this.snacktext = "Successfully logged out";
+        this.snackbar = true;
+        window.localStorage.removeItem("loggedout");
       }
     }
-    let code = 0;
-    fetch(base_link + "/btc", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((data) => {
-        code = data.status;
-        return data.json();
-      })
-      .then((res) => {
-        if (code != 200) {
-          this.snacktext = res.status + ": " + res.message;
-          this.snackbar = true;
-          return;
-        }
-        if (res.verified == null && this.verified){
-          window.localStorage.removeItem("uid");
-          window.localStorage.setItem("timedout", true);
-          window.location.reload();
-        }
-      });
-  },
+    if(this.verified) this.Status();
+  }
 };
 </script>
 
