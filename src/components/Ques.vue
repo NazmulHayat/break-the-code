@@ -3,7 +3,7 @@
     <div class="mein pa-3 pa-sm-5">
       <v-row dense>
         <v-col class="pinit">
-          <Timer class="init 
+          <Count_Timer class="init 
           text-h5
           text-md-h4
           " />
@@ -146,11 +146,11 @@
 
 
 <script>
-import Timer from "@/components/Timer3.vue";
+import Count_Timer from "@/components/Timer3.vue";
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 
 export default {
-  components: { Timer },
+  components: { Count_Timer },
   props: {
     user_name: String
   },

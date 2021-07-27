@@ -1,11 +1,12 @@
 <template>
   <div class="mymain" id="mymain">
-    <div class="home_login" v-if="!this.verified">
-      <span v-if="show_time == 1"> <Timer /> </span>
+    <span v-if="verified == true && Date.now() < ST"> <Timer :start_time='ST' /> </span>
+    <Ques v-if="verified && Date.now() >= ST + 1" :user_name="uid" />
+    <div v-if="!verified" class="home_login">
       <div id="welcome">
         <div class="" id="glitched-writer"></div>
       </div>
-      <div v-if="show_time == 0" id="inp">
+      <div id="inp">
         <div id="child-inp" class="mx-16">
           <!-- <input
             class="input"
@@ -85,7 +86,6 @@
         </template>
       </v-snackbar>
     </div>
-    <Ques v-if="verified == true" :user_name="uid" />
   </div>
 </template>
 
@@ -101,9 +101,11 @@ export default {
       snackbar: false,
       timeout: 5000,
       show_time: 0,
+      ST: null,
       snacktext: "",
       uid: "",
       pass: "",
+      never: false,
       verified: false,
     };
   },
@@ -112,9 +114,9 @@ export default {
     Ques,
   },
   methods: {
-      focusNext() {
-        document.getElementById('password-field').focus();
-      },
+    focusNext() {
+      document.getElementById('password-field').focus();
+    },
     fun() {
       let apibody = {
         uid: this.uid,
@@ -142,9 +144,11 @@ export default {
             return;
           }
           this.verified = true;
+          console.log("verified");
           if(window.Storage != null){
             window.localStorage.setItem("uid",this.uid);
           }
+          console.log(res);
         });
     },
   },
@@ -191,6 +195,11 @@ export default {
           window.localStorage.setItem("timedout", true);
           window.location.reload();
         }
+        console.log(res, res.start, this.verified);
+
+        console.log(res.start);
+        console.log(Date.now());
+        this.ST = Date.now() + 20000;
       });
   },
 };

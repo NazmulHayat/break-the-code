@@ -1,13 +1,15 @@
 <template>
-  <div class="container">
-    <h1>Before Start</h1>
-    <div id="countdown">
-      <ul class="mx-16">
-        <li><span id="days"></span>days</li>
-        <li><span id="hours"></span>Hours</li>
-        <li><span id="minutes"></span>Minutes</li>
-        <li><span id="seconds"></span>Seconds</li>
-      </ul>
+  <div id="for_rmv">
+    <div class="container">
+      <h1>Before Start</h1>
+      <div id="countdown">
+        <ul class="mx-16">
+          <li><span id="days"></span>days</li>
+          <li><span id="hours"></span>Hours</li>
+          <li><span id="minutes"></span>Minutes</li>
+          <li><span id="seconds"></span>Seconds</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -15,11 +17,14 @@
 
 <script>
 export default {
+  props: {
+    start_time: Number
+  },
   mounted() {
     const second = 1000,
       minute = second * 60,
       hour = minute * 60, day=hour * 24;
-    let countDown = Date.now() + 100000000 * 10 * 1,
+      let countDown = this.start_time,
       x = setInterval(function () {
         let distance = countDown - Date.now();
         if (distance <= 0) {
@@ -28,6 +33,9 @@ export default {
           document.getElementById("hours").innerText = 0;
           document.getElementById("minutes").innerText = 0;
           document.getElementById("seconds").innerText = 0;
+          console.log("waddu[");
+          document.getElementById('for_rmv').removeChild(document.getElementById('for_rmv').firstChild);
+          console.log("done");
           return;
         }
         document.getElementById("days").innerText = Math.floor(distance / day);
