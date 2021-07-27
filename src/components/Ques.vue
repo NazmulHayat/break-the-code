@@ -72,6 +72,7 @@
               text-subtitle-1
               text-md-h6"
               rows="3"
+              v-model="answers[i]"
             ></v-textarea>
           </v-row>
 
@@ -80,7 +81,7 @@
               class="submit text-subtitle-1 font-weight-black mb-10 mr-2"
               color="transparent"
               elevation="6"
-              @click="fun()"
+              @click="fun(i)"
               :loading="loader"
               :disabled="loader"
             >
@@ -133,7 +134,7 @@
     </v-navigation-drawer>
 
     <v-snackbar v-model="snackbar" :timeout="timeout" absolute bottom right>
-      {{ text }}
+      {{ snacktext }}
 
       <template v-slot:action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
@@ -152,7 +153,8 @@ var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   components: { Count_Timer },
   props: {
-    user_name: String
+    user_name: String,
+    questions:Array[Object],
   },
   data() {
     return {
@@ -161,39 +163,12 @@ export default {
       loader: false,
       ind: 0,
       snackbar: false,
-      text: "Your answer has been submitted.",
+      snacktext: "",
+      answers: ["","","","","","",""],
       timeout: 2000,
-      questions: [
-        {
-          ques: "What is an apple?",
-          img: "https://picsum.photos/1600/500",
-          attempted: 0,
-        },
-        {
-          ques: "What the duck is your name?",
-          img: null,
-          attempted: 1,
-        },
-        {
-          ques: "Do you know Joe?",
-          img: "https://picsum.photos/1600/400",
-          attempted: 0,
-        },
-        {
-          ques: "What is an ice-cream?",
-          img: "https://picsum.photos/1600/400",
-          attempted: 1,
-        },
-        {
-          ques: "What is an orange?",
-          img: null,
-          attempted: 1,
-        },
-      ],
     };
   },
   mounted() {
-    console.log(this.user_name);
     // this.user_name = this.user_name.substr(0, this.user_name.length-5);
   },
   methods: {
@@ -212,21 +187,57 @@ export default {
       })
       .then((res) => {
         if(code != 200 || res.status != "success") {
-          console.log("Logout failed");
+          this.snackbar= true;
+          this.text=res.message;
           return;
         }
-        console.log("Succesfully Logged out", res);
+        console.log(res);
+        if(window.Storage != null)
+        {
+          window.localStorage.removeItem("uid");
+          window.localStorage.setItem("loggedout", true);
+        }
         window.location.reload();
       })
     },
-    fun(){
+
+    fun(ques_no){
       this.loader = true;
-      setTimeout(() => {
+      console.log(this.answers);
+      let apibody = {
+        answer: this.answers[ques_no]
+      };
+      this.loader = true;
+      let code = 0;
+      fetch(base_link + '/btc/' + ques_no, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(apibody)
+      })
+      .then((data) => {
+        code = data.status;
+        console.log("hi", data, apibody);
+        return data.json();
+      })
+      .then((res) => {
+        console.log("aschi");
         this.loader = false;
+        if (code != 200 || res.status != "success") {
+          this.snacktext = res.status + ": " + res.message;
+          this.snackbar = true;
+          return;
+        }
+        console.log("Submitted Successfully", res);
         this.snackbar = true;
+        this.answers[ques_no] = "";
+        this.snacktext = "Answer submitted successfully";
         this.questions[this.ind].attempted = 1;
-      }, 2000);
+      })
     },
+
     next() {
       this.ind = (this.ind + 1) % this.questions.length;
     },
@@ -234,11 +245,10 @@ export default {
       this.ind = (this.questions.length + this.ind - 1) % this.questions.length;
     },
     do_it(id) {
-      console.log(id);
       this.ques_bar = !this.ques_bar;
       this.ind = id;
     },
-  },
+  }
 };
 </script>
 
@@ -357,7 +367,7 @@ export default {
 
 .body {
   height: 100%;
-  display: flex !important;
+  display: flex;
   justify-content: center;
 }
 
