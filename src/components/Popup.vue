@@ -1,12 +1,12 @@
 <template>
-  <div class="text-center">
+  <div class="pop-cont">
     <v-dialog
       v-model="dialog"
       width="500"
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="info-btn mr-1 grey darken-3" position absolute bottom right fab v-bind="attrs" v-on="on"
-          ><v-icon large>mdi-information-outline</v-icon></v-btn>
+        <v-btn class="info-btn ma-2 grey darken-3 mdibtn" fab v-bind="attrs" v-on="on"
+          ><v-icon class="mdicon">mdi-information-outline</v-icon></v-btn>
       </template>
 
       <v-card class="main-card">
@@ -67,9 +67,7 @@ export default {
   filter: brightness(60%);
 }
 .info-btn {
-  /* position: absolute;
-  right: 16px; */
-  bottom: 95px !important;
+  float: right;
 }
 .WordSection1 {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",

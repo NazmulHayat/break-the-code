@@ -6,7 +6,9 @@
         <div class="" id="glitched-writer"></div>
       </div>
       <div v-if="show_time == 0" id="inp">
-        <div id="child-inp" class="mx-16">
+        <div id="child-inp" class="
+        mx-4
+        ">
           <v-form ref="form" class="form">
             <v-text-field
               v-model="uid"
@@ -34,7 +36,7 @@
             ></v-text-field>
           </v-form>
           <div
-            class="amra pt-8 pb-2"
+            class="amra pb-2"
             style="display: flex; justify-content: center"
           >
             <v-btn
@@ -75,7 +77,6 @@
         :answers="answers"
       />
     </div>
-    <Popup/>
   </div>
 </template>
 
@@ -83,7 +84,6 @@
 import GlitchedWriter, { glyphs } from "glitched-writer";
 import Timer from "@/components/Timer2.vue";
 import Ques from "@/components/Ques.vue";
-import Popup from '@/components/Popup.vue';
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   data() {
@@ -108,7 +108,7 @@ export default {
   },
   components: {
     Timer,
-    Ques, Popup
+    Ques
   },
   methods: {
     focusNext() {

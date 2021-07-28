@@ -21,17 +21,14 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <Popup />
   </div>
 </template>
 
 
 <script>
-import Popup from '@/components/Popup.vue';
 
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
-  components: { Popup },
   data() {
     return {
       snackbar: false,
