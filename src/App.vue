@@ -29,7 +29,9 @@ html {
 
 .animated {
   width: 100vw;
-  border-bottom: 2px solid rgb(68, 105, 116);
+  opacity: 0.8;
+  z-index: -1;
+  border-bottom: 2px solid rgb(147, 155, 155);
   filter: brightness(60%);
 }
 
@@ -43,7 +45,7 @@ html {
 @keyframes MoveUpDown {
   0%,
   100% {
-    top: 1vh;
+    top: 0vh;
   }
   50% {
     top: 92.5vh;
@@ -76,9 +78,24 @@ html {
   pointer-events: none;
 } */
 
+@keyframes colorchange {
+  from {
+    /* opacity: 0.8; */
+    /* background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%); */
+    /* background-image: radial-gradient(rgba(61, 56, 56, 0.2), #000000 120%); */
+    background-color: black;
+  }
+  to {
+    opacity: 1;
+    background-image: radial-gradient(rgba(93, 84, 84, 0.2), #000000 120%);
+  }
+}
+
+
 #app {
   background-color: #1d1e22;
-  background-image: radial-gradient(rgba(66, 195, 200, 0.2), #000000 120%);
+  animation: colorchange 2.5s;
+  background-image: radial-gradient(rgba(93, 84, 84, 0.2), #000000 120%);
   /* background: #0f3854;
     background: radial-gradient(ellipse at center,  #050505  0%, #000000 95%); */
   filter: brightness(170%);
