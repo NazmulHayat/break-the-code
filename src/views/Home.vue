@@ -3,11 +3,11 @@
     <span v-if="show_time"> <Timer /> </span>
     <div class="mt-6 home_login" v-if="!this.verified">
       <div id="welcome">
-        <div class="" id="glitched-writer"></div>
+        <div id="glitched-writer"></div>
       </div>
       <div v-if="show_time == 0" id="inp">
         <div id="child-inp" class="
-        mx-4
+        mx-8
         ">
           <v-form ref="form" class="form">
             <v-text-field
@@ -40,7 +40,7 @@
             style="display: flex; justify-content: center"
           >
             <v-btn
-              class="submit mb-10 text-h6 font-weight-black mr-2"
+              class="submit text-h6 font-weight-black mr-2"
               color="#a5e5d4"
               :loading="loader"
               :disabled="loader"
