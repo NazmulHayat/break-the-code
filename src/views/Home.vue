@@ -74,6 +74,7 @@
         :endTime="start + length"
       />
     </div>
+    <Popup/>
   </div>
 </template>
 
@@ -81,6 +82,7 @@
 import GlitchedWriter, { glyphs } from "glitched-writer";
 import Timer from "@/components/Timer2.vue";
 import Ques from "@/components/Ques.vue";
+import Popup from '@/components/Popup.vue';
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   data() {
@@ -104,7 +106,7 @@ export default {
   },
   components: {
     Timer,
-    Ques,
+    Ques, Popup
   },
   methods: {
     focusNext() {

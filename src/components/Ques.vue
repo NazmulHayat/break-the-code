@@ -61,7 +61,7 @@
           >
 
           <v-row class="pr_row" v-if="item.img != null">
-            <div class="parent_img mb-2 mt-2">
+            <div class="parent_img mt-2">
               <img class="pr_img" :src="item.img" />
             </div>
           </v-row>
@@ -70,7 +70,7 @@
             <v-textarea
               label="Write your answer"
               outlined
-              class="txt px-3
+              class="mt-2 txt px-3
               text-subtitle-1
               text-md-h6"
               rows="3"
@@ -144,16 +144,18 @@
         </v-btn>
       </template>
     </v-snackbar>
+    <Popup />
   </div>
 </template>
 
 
 <script>
 import Timer from "@/components/Timer3.vue";
+import Popup from '@/components/Popup.vue';
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 
 export default {
-  components: { Timer },
+  components: { Timer, Popup },
   props: {
     user_name: String,
     questions:Array[Object],
