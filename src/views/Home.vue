@@ -1,5 +1,6 @@
 <template>
   <div class="mymain" id="mymain">
+    <span v-if="show_time"> <Timer /> </span>
     <div class="home_login" v-if="!this.verified">
       <div id="welcome">
         <div class="" id="glitched-writer"></div>
@@ -88,9 +89,11 @@ export default {
       snackbar: false,
       timeout: 5000,
       show_time: 0,
+      ST: null,
       snacktext: "",
       uid: "",
       pass: "",
+      never: false,
       verified: false,
       questions: [],
       start: 0,
@@ -108,6 +111,7 @@ export default {
       document.getElementById("password-field").focus();
     },
     fun() {
+      console.log('hi');
       let apibody = {
         uid: this.uid,
         pass: this.pass,
@@ -127,6 +131,7 @@ export default {
           return data.json();
         })
         .then((res) => {
+          console.log(res);
           this.loader = false;
           if (code != 200 || res.status != "success") {
             this.snacktext = res.status + ": " + res.message;
@@ -151,6 +156,7 @@ export default {
           return data.json();
         })
         .then((res) => {
+          console.log(res);
           if (code != 200) {
             this.snacktext = res.status + ": " + res.message;
             this.snackbar = true;

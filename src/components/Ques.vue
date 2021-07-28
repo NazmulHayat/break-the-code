@@ -74,6 +74,7 @@
               text-subtitle-1
               text-md-h6"
               rows="3"
+              v-model="answers[i]"
             ></v-textarea>
           </v-row>
 
@@ -82,7 +83,7 @@
               class="submit text-subtitle-1 font-weight-black mb-10 mr-2"
               color="transparent"
               elevation="6"
-              @click="fun()"
+              @click="fun(i)"
               :loading="loader"
               :disabled="loader"
             >
@@ -135,7 +136,7 @@
     </v-navigation-drawer>
 
     <v-snackbar v-model="snackbar" :timeout="timeout" absolute bottom right>
-      {{ text }}
+      {{ snacktext }}
 
       <template v-slot:action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
@@ -168,35 +169,9 @@ export default {
       loader: false,
       ind: 0,
       snackbar: false,
-      text: "Your answer has been submitted.",
+      snacktext: "",
+      answers: ["","","","","","",""],
       timeout: 2000,
-      q: [
-        {
-          ques: "What is an apple?",
-          img: "https://picsum.photos/1600/500",
-          attempted: 0,
-        },
-        {
-          ques: "What the duck is your name?",
-          img: null,
-          attempted: 1,
-        },
-        {
-          ques: "Do you know Joe?",
-          img: "https://picsum.photos/1600/400",
-          attempted: 0,
-        },
-        {
-          ques: "What is an ice-cream?",
-          img: "https://picsum.photos/1600/400",
-          attempted: 1,
-        },
-        {
-          ques: "What is an orange?",
-          img: null,
-          attempted: 1,
-        },
-      ],
     };
   },
   mounted() {
@@ -230,14 +205,41 @@ export default {
         window.location.reload();
       })
     },
-    fun(){
+
+    fun(ques_no){
       this.loader = true;
-      setTimeout(() => {
+      let apibody = {
+        answer: this.answers[ques_no]
+      };
+      this.loader = true;
+      let code = 0;
+      fetch(base_link + '/btc/' + ques_no, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(apibody)
+      })
+      .then((data) => {
+        code = data.status;
+        return data.json();
+      })
+      .then((res) => {
         this.loader = false;
+        if (code != 200 || res.status != "success") {
+          this.snacktext = res.status + ": " + res.message;
+          this.snackbar = true;
+          return;
+        }
+        console.log("Submitted Successfully", res);
         this.snackbar = true;
+        this.answers[ques_no] = "";
+        this.snacktext = "Answer submitted successfully";
         this.questions[this.ind].attempted = 1;
-      }, 2000);
+      })
     },
+
     next() {
       this.ind = (this.ind + 1) % this.questions.length;
     },
