@@ -1,0 +1,35 @@
+<template>
+  <div class="mymain" id="mymain">
+    <span v-if="show_time"> <Timer /> </span>
+    <div class="mt-6 home_login" v-if="!this.verified">
+      <div id="welcome">
+        <div class="" id="glitched-writer"></div>
+      </div>
+      <v-container v-if="show_time == 0" class="main-inp d-flex align-center justify-center">
+        <v-card>
+          asdfasdf
+        </v-card>
+      </v-container>
+
+    </div>
+    <div v-show="verified">
+      <Timer :start="start" v-show="!started" />
+      <Ques
+        :user_name="uid"
+        v-show="started"
+        :questions="questions"
+        :endTime="start + length"
+        :answers="answers"
+      />
+    </div>
+    <Popup/>
+    <v-snackbar class="pt-2 pr-1" absolute top right v-model="snackbar" :timeout="timeout">
+      {{ snacktext }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
+</template>

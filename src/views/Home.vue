@@ -1,7 +1,7 @@
 <template>
   <div class="mymain" id="mymain">
     <span v-if="show_time"> <Timer /> </span>
-    <div class="mt-6 home_login" v-if="!this.verified">
+    <div class="home_login" v-if="!this.verified">
       <div id="welcome">
         <div class="" id="glitched-writer"></div>
       </div>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <v-snackbar class="pt-2 pr-1" absolute top right v-model="snackbar" :timeout="timeout">
+      <v-snackbar v-model="snackbar" :timeout="timeout">
         {{ snacktext }}
         <template v-slot:action="{ attrs }">
           <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
@@ -72,10 +72,8 @@
         v-show="started"
         :questions="questions"
         :endTime="start + length"
-        :answers="answers"
       />
     </div>
-    <Popup/>
   </div>
 </template>
 
@@ -83,7 +81,6 @@
 import GlitchedWriter, { glyphs } from "glitched-writer";
 import Timer from "@/components/Timer2.vue";
 import Ques from "@/components/Ques.vue";
-import Popup from '@/components/Popup.vue';
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   data() {
@@ -103,18 +100,18 @@ export default {
       presend: null,
       length: null,
       started: false,
-      answers: null
     };
   },
   components: {
     Timer,
-    Ques, Popup
+    Ques,
   },
   methods: {
     focusNext() {
       document.getElementById("password-field").focus();
     },
     fun() {
+      console.log('hi');
       let apibody = {
         uid: this.uid,
         pass: this.pass,
@@ -159,6 +156,7 @@ export default {
           return data.json();
         })
         .then((res) => {
+          console.log(res);
           if (code != 200) {
             this.snacktext = res.status + ": " + res.message;
             this.snackbar = true;
@@ -174,8 +172,6 @@ export default {
           }
           if (res.qp != null) {
             this.questions = res.qp;
-            this.answers = res.answers;
-            console.log(res.answers);
           }
           this.start = res.start;
           let diff = this.start - Date.now();
