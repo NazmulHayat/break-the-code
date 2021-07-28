@@ -144,18 +144,16 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <Popup />
   </div>
 </template>
 
 
 <script>
 import Timer from "@/components/Timer3.vue";
-import Popup from '@/components/Popup.vue';
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 
 export default {
-  components: { Timer, Popup },
+  components: { Timer },
   props: {
     user_name: String,
     questions:Array[Object],
@@ -390,14 +388,6 @@ export default {
   justify-content: center;
 }
 
-.mdibtn {
-  height: 45px !important;
-  width: 45px !important;
-}
-.mdicon {
-  font-size: 35px !important;
-}
-
 .mein {
   max-width: 800px;
   width: 100%;
@@ -543,24 +533,7 @@ export default {
 }
 
 
-@media only screen and (min-width: 750px) {
-  .mdibtn {
-    height: 50px !important;
-    width: 50px !important;
-  }
-  .mdicon {
-    font-size: 40px !important;
-  }
-}
-
 @media only screen and (min-width: 1264px) {
-  .mdibtn {
-    height: 55px !important;
-    width: 55px !important;
-  }
-  .mdicon {
-    font-size: 45px !important;
-  }
   .mein {
     max-width: 1000px;
   }
@@ -572,13 +545,6 @@ export default {
 }
 }
 @media only screen and (min-width: 1580px) {
-  .mdibtn {
-    height: 60px !important;
-    width: 60px !important;
-  }
-  .mdicon {
-    font-size: 50px !important;
-  }
   .mein {
     max-width: 1300px;
   }

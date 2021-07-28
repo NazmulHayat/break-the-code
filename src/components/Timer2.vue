@@ -4,11 +4,11 @@
     <div class="container">
       <h1>Before Start</h1>
       <div id="countdown">
-        <ul class="mx-16">
-          <li id="Hdays"></li>
-          <li id="Hhours"></li>
-          <li id="Hminutes"></li>
-          <li id="Hseconds"></li>
+        <ul class="">
+          <li><span id="days"></span>days</li>
+          <li><span id="hours"></span>Hours</li>
+          <li><span id="minutes"></span>Minutes</li>
+          <li><span id="seconds"></span>Seconds</li>
         </ul>
       </div>
     </div>
@@ -21,17 +21,14 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <Popup />
   </div>
 </template>
 
 
 <script>
-import Popup from '@/components/Popup.vue';
 
 var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
-  components: { Popup },
   data() {
     return {
       snackbar: false,
@@ -42,7 +39,7 @@ export default {
   props: {
     start: {
       type: Number,
-      default: 0,
+      default: Date.now() + 9000000,
     },
   },
   methods: {
@@ -77,6 +74,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.start);
     const second = 1000,
       minute = second * 60,
       hour = minute * 60,
@@ -88,19 +86,16 @@ export default {
       let distance = this.start - Date.now();
       if (distance <= 0) {
         clearInterval(x);
-        document.getElementById("Hdays").innerText = 0;
-        document.getElementById("Hhours").innerText = 0;
-        document.getElementById("Hminutes").innerText = 0;
-        document.getElementById("Hseconds").innerText = 0;
+        document.getElementById("days").innerText = 0;
+        document.getElementById("hours").innerText = 0;
+        document.getElementById("minutes").innerText = 0;
+        document.getElementById("seconds").innerText = 0;
         return;
       }
-      document.getElementById("Hdays").innerText = Math.floor(distance / day) + " Days";
-      document.getElementById("Hhours").innerText =
-        Math.floor((distance % day) / hour) + " Hours";
-      document.getElementById("Hminutes").innerText =
-        Math.floor((distance % hour) / minute) + " Minutes";
-      document.getElementById("Hseconds").innerText =
-        Math.floor((distance % minute) / second) + " Seconds";
+      document.getElementById("days").innerText = Math.floor(distance / day);
+      document.getElementById("hours").innerText = Math.floor((distance % day) / hour);
+      document.getElementById("minutes").innerText = Math.floor((distance % hour) / minute);
+      document.getElementById("seconds").innerText = Math.floor((distance % minute) / second);
       //seconds
     }, 1);
   }
@@ -176,22 +171,40 @@ li {
 }
 
 li span {
-  display: inline-block;
+  display: block;
   font-size: 4.5rem;
 }
 
+ul{
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  flex-wrap: wrap;
+  /* align-items: center; */
+}
+
 @media all and (max-width: 768px) {
-  h1 {
-    font-size: 1.5rem;
-  }
 
   li {
-    font-size: 0.5rem;
-    padding: 0.75rem;
+    font-size: 1.125rem;
+    padding: .75rem;
   }
-
+  
   li span {
-    font-size: 3.375rem;
+    font-size: 4.5rem;
+  }
+}
+
+@media all and (max-width: 410px) {
+
+  li {
+    font-size: 1rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  li span {
+    font-size: 3.5rem;
   }
 }
 </style>

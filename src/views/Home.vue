@@ -6,7 +6,9 @@
         <div class="" id="glitched-writer"></div>
       </div>
       <div v-if="show_time == 0" id="inp">
-        <div id="child-inp" class="mx-16">
+        <div id="child-inp" class="
+        mx-4
+        ">
           <v-form ref="form" class="form">
             <v-text-field
               v-model="uid"
@@ -34,7 +36,7 @@
             ></v-text-field>
           </v-form>
           <div
-            class="amra pt-8 pb-2"
+            class="amra pb-2"
             style="display: flex; justify-content: center"
           >
             <v-btn
@@ -104,7 +106,7 @@ export default {
   },
   components: {
     Timer,
-    Ques,
+    Ques
   },
   methods: {
     focusNext() {
@@ -187,6 +189,7 @@ export default {
               this.Status();
             }, diff2);
           this.length = res.length;
+          console.log("asdasd", this.length);
         });
     },
   },
