@@ -129,13 +129,13 @@
         @click="do_it(index - 1)"
       >
         <span v-if="questions[index - 1].attempted == 1">
-          <div id="speci">Question {{ index }}</div>
+          Question {{ index }}
         </span>
         <span v-else> Question {{ index }} </span>
       </button>
     </v-navigation-drawer>
 
-    <v-snackbar v-model="snackbar" :timeout="timeout" absolute bottom right>
+    <v-snackbar class="pt-2 pr-1" absolute top right v-model="snackbar" :timeout="timeout">
       {{ snacktext }}
 
       <template v-slot:action="{ attrs }">
@@ -280,7 +280,7 @@ export default {
 
 .lgout:hover {
   color: rgb(146, 228, 255) !important;
-  background-color: black !important;
+  background-color: rgb(6, 27, 41) !important;
 }
 
 .logout{
@@ -458,6 +458,9 @@ export default {
   font-size: 21px;
   width: 100%;
   font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   border-bottom: 1px double grey;
   background-color: rgb(27, 77, 158);

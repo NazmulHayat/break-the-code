@@ -1,7 +1,7 @@
 <template>
   <div class="mymain" id="mymain">
     <span v-if="show_time"> <Timer /> </span>
-    <div class="home_login" v-if="!this.verified">
+    <div class="mt-6 home_login" v-if="!this.verified">
       <div id="welcome">
         <div class="" id="glitched-writer"></div>
       </div>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <v-snackbar v-model="snackbar" :timeout="timeout">
+      <v-snackbar class="pt-2 pr-1" absolute top right v-model="snackbar" :timeout="timeout">
         {{ snacktext }}
         <template v-slot:action="{ attrs }">
           <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">

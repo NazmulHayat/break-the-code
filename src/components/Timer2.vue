@@ -1,27 +1,75 @@
 <template>
-  <div class="container">
-    <h1>Before Start</h1>
-    <div id="countdown">
-      <ul class="mx-16">
-        <li id="Hdays"></li>
-        <li id="Hhours"></li>
-        <li id="Hminutes"></li>
-        <li id="Hseconds"></li>
-      </ul>
+  <div id="mein_wr">
+    <v-btn class="lgout2 my-8 mr-8" elevation="" @click="logout()" rounded large> Logout </v-btn>
+    <div class="container">
+      <h1>Before Start</h1>
+      <div id="countdown">
+        <ul class="mx-16">
+          <li id="Hdays"></li>
+          <li id="Hhours"></li>
+          <li id="Hminutes"></li>
+          <li id="Hseconds"></li>
+        </ul>
+      </div>
     </div>
+    <v-snackbar class="pt-2 pl-1" absolute top left v-model="snackbar" :timeout="timeout">
+      {{ snacktext }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
 
 <script>
+
+var base_link = "https://pihacks-btc-api.herokuapp.com";
 export default {
   data() {
-    return {};
+    return {
+      snackbar: false,
+      snacktext: "",
+    };
   },
   props: {
     start: {
       type: Number,
       default: 0,
+    },
+  },
+  methods: {
+    logout(){
+      let code = 0;
+      fetch(base_link + "/btc", {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((data) => {
+        code = data.status;
+        return data.json();
+      })
+      .then((res) => {
+        if(code != 200 || res.status != "success") {
+          this.snackbar= true;
+          this.snacktext=res.message;
+          return;
+        }
+        if(window.Storage != null)
+        {
+          // this.snackbar= true;
+          // this.snacktext="yo yo hunny bunny";
+          window.localStorage.removeItem("uid");
+          window.localStorage.setItem("loggedout", true);
+        }
+        window.location.reload();
+      })
     },
   },
   mounted() {
@@ -68,6 +116,23 @@ body {
   margin: 0;
 }
 
+.lgout2{
+  position: absolute !important;
+  right: 0; top: 0;
+  margin-right: 20px;
+  color: rgb(0, 0, 0) !important;
+  background-color: rgb(175, 181, 190) !important;
+  font-size: 18px !important;
+  width: 110px;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+  font-weight: 900 !important;
+}
+
+.lgout2:hover {
+  color: rgb(146, 228, 255) !important;
+  background-color: rgb(6, 27, 41) !important;
+}
+
 body {
   align-items: center;
   background-color: #ffd54f;
@@ -107,7 +172,7 @@ li {
 }
 
 li span {
-  display: block;
+  display: inline-block;
   font-size: 4.5rem;
 }
 
