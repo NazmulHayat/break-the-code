@@ -161,6 +161,10 @@ export default {
       type: Number,
       default: 0,
     },
+    answers:{
+      type: Array[String],
+      default:null
+    }
   },
   data() {
     return {
@@ -170,12 +174,23 @@ export default {
       ind: 0,
       snackbar: false,
       snacktext: "",
-      answers: ["","","","","","",""],
       timeout: 2000,
     };
   },
-  mounted() {
-    // this.user_name = this.user_name.substr(0, this.user_name.length-5);
+  watch:{
+    questions(){
+      if(this.answers == null) {
+        this.answers = [];
+      }
+      for(let i=0;i<this.questions.length;i++){
+        if(this.answers.length == i) {
+          this.answers[i] = "";
+        }
+        if(this.answers[i] != "") {
+          this.questions[i].attempted = true;
+        }
+      }
+    }
   },
   methods: {
     logout(){

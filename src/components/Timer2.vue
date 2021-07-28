@@ -33,6 +33,7 @@ export default {
     return {
       snackbar: false,
       snacktext: "",
+      timeout:2000,
     };
   },
   props: {

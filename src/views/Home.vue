@@ -72,6 +72,7 @@
         v-show="started"
         :questions="questions"
         :endTime="start + length"
+        :answers="answers"
       />
     </div>
   </div>
@@ -100,6 +101,7 @@ export default {
       presend: null,
       length: null,
       started: false,
+      answers: null
     };
   },
   components: {
@@ -111,7 +113,6 @@ export default {
       document.getElementById("password-field").focus();
     },
     fun() {
-      console.log('hi');
       let apibody = {
         uid: this.uid,
         pass: this.pass,
@@ -156,7 +157,6 @@ export default {
           return data.json();
         })
         .then((res) => {
-          console.log(res);
           if (code != 200) {
             this.snacktext = res.status + ": " + res.message;
             this.snackbar = true;
@@ -172,6 +172,8 @@ export default {
           }
           if (res.qp != null) {
             this.questions = res.qp;
+            this.answers = res.answers;
+            console.log(res.answers);
           }
           this.start = res.start;
           let diff = this.start - Date.now();
