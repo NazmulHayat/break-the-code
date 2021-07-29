@@ -1,26 +1,26 @@
 "questions":[
    {
-      "ques":"Decode this message: [[[[[[]][][",
+      "ques":"<p>Decode this message: [[[[[[]][][</p>",
       "img":null
    },
    {
-      "ques":"CRACK THE CODE",
+      "ques":"<p>CRACK THE CODE</p>",
       "img":null
    },
    {
-      "ques":"Answer the following question (Shift 25) Vntkc xnt khjd sn ad qhBjqnKkDC?",
+      "ques":"<p>Answer the following question (Shift 25)<br>Vntkc xnt khjd sn ad qhBjqnKkDC?</p>",
       "img":null
    },
    {
-      "ques":"This is an encrypted quote. Find who said it. gsrmth ziv mvevi zh xlnkorxzgvw zh gsvb hvvn Ig rh lmob lfi ziiltzmxv gszg kilnkgh fh gl urmw fmmvxvhhzirob xlnkorxzgvw zmhdvih gl hrnkov kilyovnhgsrmth ziv mvevi zh xlnkorxzgvw zh gsvb hvvn. Ig rh lmob lfi ziiltzmxv gszg kilnkgh fh gl urmw fmmvxvhhzirob xlnkorxzgvw zmhdvih gl hrnkov kilyovnh Key: A=Z, B=Y and so on.",
+      "ques":"<p>This is an encrypted quote. Find who said it.<br>gsrmth ziv mvevi zh xlnkorxzgvw zh gsvb hvvn Ig rh lmob lfi ziiltzmxv gszg kilnkgh fh gl urmw fmmvxvhhzirob xlnkorxzgvw zmhdvih gl hrnkov kilyovnhgsrmth ziv mvevi zh xlnkorxzgvw zh gsvb hvvn. Ig rh lmob lfi ziiltzmxv gszg kilnkgh fh gl urmw fmmvxvhhzirob xlnkorxzgvw zmhdvih gl hrnkov kilyovnh<br><b>Key: A=Z, B=Y and so on.</b></p>",
       "img":null
    },
    {
-      "ques":"If the word PLANNING is encoded as UFFHSCSA, then how will the word AUTHORITY be encoded using the same key?",
+      "ques":"<p>If the word PLANNING is encoded as <b>UFFHSCSA</b>, then how will the word <b>AUTHORITY</b> be encoded using the same key?</p>",
       "img":null
    },
    {
-      "ques":"Decrypt this message: captain albino normal fling ringmaster alpha turner bureau lenient agenda tutor sensei optimistic weapon surrender tunic orphan wanted enthusiastic absorb rooster waffle action debunk eagle winner",
+      "ques":"<p>Decrypt this message:<br>captain albino normal fling ringmaster alpha turner bureau lenient agenda tutor sensei optimistic weapon surrender tunic orphan wanted enthusiastic absorb rooster waffle action debunk eagle winner</p>",
       "img":null
    },
    {
@@ -28,15 +28,15 @@
       "img":null
    },
    {
-      "ques":"`Nazmul was making his first website. After saving the code, he locked his laptop with a password and mentioned some phrases for the hint box. Chisty tried to see what was Nazmul's progress. But he saw that it was protected with password. Following is the hint that appeared when Chisty entered a wrong password. \"1 microwave, 3 GeoGebra, 2 books, 1 nose, 4 balls, 2 cinema, 3 dogs, 1 house, 3 witches\" He really couldn't make any sense out of it, but can you?`",
+      "ques":"<p>Nazmul was making his first website. After saving the code, he locked his laptop with a password and mentioned some phrases for the hint box. Chisty tried to see what was Nazmul's progress. But he saw that it was protected with password. Following is the hint that appeared when Chisty entered a wrong password.<br>"1 microwave,3 GeoGebra, 2 books,<br>1 nose, 4 balls, 2 cinema,<br>3 dogs, 1 house, 3 witches\" He really couldn't make any sense out of it, but can you?</p>",
       "img":null
    },
    {
-      "ques":"What does this text say? Hint: First, find the decryption key and decrypt the all the letters to make sensible group of letters/words. Then rearrange these words in correct order. QA IVL PIKS KZIKS BQTT BQUM VQT",
+      "ques":"<p>What does this text say?<br><b>Hint: First, find the decryption key and decrypt the all the letters to make sensible group of letters/words. Then rearrange these words in correct order.</b>QA IVL PIKS KZIKS BQTT BQUM VQT</p>",
       "img":null
    },
    {
-      "ques":"`Here are some cities and their distances from you in a deformed map of Bangladesh:\nDHAKA     - 30 km\nCHATTOGRAM- 20 km\nRANGPUR   - 10 km\nRAJSHAHI  - 40 km\nBARISAL   - 50 km\nFind the distance from KHULNA. Just input the number(ex: Input 70 if the answer is \"70km\")`",
+      "ques":"<p>Here are some cities and their distances from you in a deformed map of Bangladesh:<br>DHAKA     - 30 km<br>CHATTOGRAM- 20 km<br>RANGPUR   - 10 km<br>RAJSHAHI  - 40 km<br>BARISAL   - 50 km<br>Find the distance from KHULNA. Just input the number(ex: Input 70 if the answer is \"70km\")</p>",
       "img":null
    }
 ]

@@ -48,7 +48,9 @@
             pt-6 text-h5
             text-md-h4"
             id="ques_no"
-            >Question {{ i + 1 }}</v-row
+            >
+            Question {{ i + 1 }}
+            </v-row
           >
           <v-row
             justify="start"
@@ -57,6 +59,7 @@
             text-h5
             text-md-h5
             text-lg-h4"
+            v-html="item.ques"
             >{{ item.ques }}</v-row
           >
 
@@ -70,10 +73,10 @@
             <v-textarea
               label="Write your answer"
               outlined
-              class="mt-2 txt px-3
+              class="mt-2 ami joss shottti boltesi px-3
               text-subtitle-1
               text-md-h6"
-              rows="3"
+              rows="2"
               v-model="answers[i]"
             ></v-textarea>
           </v-row>
@@ -394,6 +397,28 @@ export default {
   margin-top: 30px;
 }
 
+.v-application p {
+  margin-bottom: 0 !important;
+}
+
+b, strong{
+  font-weight: 600 !important;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 400 !important;
+}
+
+/* .v-textarea textarea {
+    padding: 5px !important;
+} */
+
+.v-textarea textarea .ami.joss.shottti.boltesi{
+    padding: 5px !important;
+}
+
+
 @keyframes transitionLeft {
   from {
     opacity: 0;
@@ -478,14 +503,19 @@ export default {
   background-color: rgb(9, 11, 14) !important;
 }
 
+#ques-no{
+  /* font-weight: 100 !important; */
+}
+
 .ques-text {
   font-size: 35px;
   width: 100% !important;
+  /* font-weight: 200 !important; */
   color: #a5e5d4 !important;
   will-change: contents, width !important;
   /* font-family: "M PLUS 1p", "Open Sans", sans-serif !important; */
   /* font-family: "fkpieceofshit" !important; */
-  text-shadow: 2px 4px 10px rgb(165 229 212 / 50%) !important;
+  text-shadow: 1px 2px 5px rgb(165 229 212 / 50%) !important;
   /* text-shadow: 0 0 20px rgb(37, 38, 39),  0 0 20px rgba(10, 175, 230, 0) !important; */
 }
 
@@ -522,6 +552,7 @@ export default {
   /* font-family: "M PLUS 1p", "Open Sans", sans-serif !important; */
   /* font-family: "fkpieceofshit" !important;
   text-transform: uppercase; */
+  font-weight: 400 !important;
 }
 @media only screen and (max-width:970px) {
   .nav-btn {
