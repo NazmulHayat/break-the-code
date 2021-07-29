@@ -227,8 +227,9 @@ export default {
     fun(ques_no){
       this.loader = true;
       let apibody = {
-        answer: this.answers[ques_no]
+        answer: this.answers[ques_no].trim()
       };
+      console.log(this.answers[ques_no].trim());
       this.loader = true;
       let code = 0;
       fetch(base_link + '/btc/' + ques_no, {
