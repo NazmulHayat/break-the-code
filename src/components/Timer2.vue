@@ -39,7 +39,7 @@ export default {
   props: {
     start: {
       type: Number,
-      default: Date.now() + 9000000,
+      default: 0,
     },
   },
   methods: {
@@ -74,7 +74,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.start);
     const second = 1000,
       minute = second * 60,
       hour = minute * 60,

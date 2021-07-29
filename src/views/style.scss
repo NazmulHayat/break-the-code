@@ -1,15 +1,13 @@
 #inp{
-  animation: transitionIn 2.0s;
+  animation: transitionIn 4.0s;
 }
 
 @keyframes transitionIn {
   from {
     opacity: 0;
-    transform: translateY(500px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -100,7 +98,7 @@ $black: #1d1e22;
 
 #glitched-writer {
   // padding: 30px;
-  font-size: 100px !important;
+  
   color: $light-blue;
   will-change: contents, height, width;
   text-transform: uppercase;
@@ -201,7 +199,7 @@ $black: #1d1e22;
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-items: center;
+  overflow: hidden;
 }
 
 #child-inp{
@@ -212,12 +210,7 @@ $black: #1d1e22;
 #child-inp *:not(.custom-loader) {
   // display: block;
 }
-.v-input.text-field> .v-input__control > .v-input__slot > .v-text-field__slot > .v-label {
-  // max-width: 100%;
-  // background-color: white;
-  font-size : 25px !important;
-  font-weight: 500;
-}
+
 
 .v-text-field {
   font-family: "fkpieceofshit" !important;  
@@ -308,22 +301,26 @@ $black: #1d1e22;
 //     transition: transform 0.3s 1.2s;
 //   }
 // }
-
-@media only screen and(max-width: 1350px) {
-  #glitched-writer {
-    font-size: 80px !important;
-  }
+#glitched-writer {
+  font-size: 78px !important;
 }
-
-@media only screen and(max-width: 1100px) {
+.v-input.text-field> .v-input__control > .v-input__slot > .v-text-field__slot > .v-label {
+  font-size : 20px !important;
+  font-weight: 500;
+}
+@media only screen and(max-width: 1350px) {
   #glitched-writer {
     font-size: 70px !important;
   }
 }
 
-@media only screen and(max-width: 950px) {
+@media only screen and(max-width: 1100px) {
   #glitched-writer {
-    font-size: 60px !important;
+    font-size: 65px !important;
+  }
+  .v-input.text-field> .v-input__control > .v-input__slot > .v-text-field__slot > .v-label {
+    font-size : 18px !important;
+    font-weight: 500;
   }
 }
 
@@ -333,10 +330,21 @@ $black: #1d1e22;
   }
 }
 
-@media only screen and(max-width: 820px) {
+@media only screen and(max-width: 800px) {
   #glitched-writer {
-    font-size: 45px !important;
+    font-size: 55px !important;
   }
+  .v-input.text-field> .v-input__control > .v-input__slot > .v-text-field__slot > .v-label {
+    font-size : 16px !important;
+    font-weight: 500;
+  }
+}
+
+@media only screen and(max-width: 630px) {
+  #glitched-writer {
+    font-size: 50px !important;
+  }
+
 }
 .mymain {
   height: 100%;

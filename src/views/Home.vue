@@ -3,18 +3,17 @@
     <span v-if="show_time"> <Timer /> </span>
     <div class="home_login" v-if="!this.verified">
       <div id="welcome">
-        <div class="" id="glitched-writer"></div>
+        <div id="glitched-writer"></div>
       </div>
       <div v-if="show_time == 0" id="inp">
         <div id="child-inp" class="
-        mx-4
+        mx-8
         ">
           <v-form ref="form" class="form">
             <v-text-field
               v-model="uid"
               label="$ Your ID:"
               class="text-field"
-              color="black"
               :disabled="loader"
               outlined
               dark
@@ -25,7 +24,6 @@
               v-model="pass"
               label="$ Your Password:"
               class="text-field"
-              color="black"
               outlined
               dark
               :disabled="loader"
@@ -40,7 +38,7 @@
             style="display: flex; justify-content: center"
           >
             <v-btn
-              class="submit mb-10 text-h6 font-weight-black mr-2"
+              class="submit text-h6 font-weight-black mr-2"
               color="#a5e5d4"
               :loading="loader"
               :disabled="loader"
@@ -113,7 +111,6 @@ export default {
       document.getElementById("password-field").focus();
     },
     fun() {
-      console.log('hi');
       let apibody = {
         uid: this.uid,
         pass: this.pass,
@@ -158,7 +155,6 @@ export default {
           return data.json();
         })
         .then((res) => {
-          console.log(res);
           if (code != 200) {
             this.snacktext = res.status + ": " + res.message;
             this.snackbar = true;
@@ -177,6 +173,9 @@ export default {
           }
           this.start = res.start;
           let diff = this.start - Date.now();
+          if(diff>2147483647){
+            diff = 2147483647;
+          }
           window.setTimeout(
             () => {
               this.started = true;
@@ -189,7 +188,6 @@ export default {
               this.Status();
             }, diff2);
           this.length = res.length;
-          console.log("asdasd", this.length);
         });
     },
   },

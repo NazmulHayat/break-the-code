@@ -112,7 +112,7 @@
       <v-icon class="mdicon"> mdi-arrow-right </v-icon>
     </v-btn>
 
-    <v-navigation-drawer v-model="ques_bar" absolute temporary left class="nav-drawer">
+    <v-navigation-drawer v-model="ques_bar" fixed temporary class="nav-drawer">
       
       <div class="logout">
         <!-- eta responsive korte hbe -->
