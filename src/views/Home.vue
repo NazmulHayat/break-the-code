@@ -72,6 +72,7 @@
         v-show="started"
         :questions="questions"
         :endTime="start + length"
+        :answers="answers"
       />
     </div>
   </div>
@@ -96,6 +97,7 @@ export default {
       never: false,
       verified: false,
       questions: [],
+      answers: [],
       start: 0,
       presend: null,
       length: null,
@@ -170,6 +172,9 @@ export default {
           }
           if (res.qp != null) {
             this.questions = res.qp;
+          }
+          if(res.answers != null) {
+            this.answers = res.answers;
           }
           this.start = res.start;
           let diff = this.start - Date.now();

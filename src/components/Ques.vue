@@ -182,6 +182,7 @@ export default {
   },
   watch:{
     questions(){
+      console.log(this.answers);
       if(this.answers == null) {
         this.answers = [];
       }
