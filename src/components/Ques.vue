@@ -53,10 +53,10 @@
           <v-row
             justify="start"
             id="ques-detail"
-            class="ques-text pb-4 px-3 
-            text-h4
-            text-md-h3
-            text-lg-h2"
+            class="ques-text pb-4 pl-3 
+            text-h5
+            text-md-h5
+            text-lg-h4"
             >{{ item.ques }}</v-row
           >
 
@@ -520,8 +520,8 @@ export default {
 
 #ques-detail {
   /* font-family: "M PLUS 1p", "Open Sans", sans-serif !important; */
-  font-family: "fkpieceofshit" !important;
-  text-transform: uppercase;
+  /* font-family: "fkpieceofshit" !important;
+  text-transform: uppercase; */
 }
 @media only screen and (max-width:970px) {
   .nav-btn {
