@@ -28,7 +28,7 @@
       "img":null
    },
    {
-      "ques":"<p>Nazmul was making his first website. After saving the code, he locked his laptop with a password and mentioned some phrases for the hint box. Chisty tried to see what was Nazmul's progress. But he saw that it was protected with password. Following is the hint that appeared when Chisty entered a wrong password.<br>"1 microwave,3 GeoGebra, 2 books,<br>1 nose, 4 balls, 2 cinema,<br>3 dogs, 1 house, 3 witches\" He really couldn't make any sense out of it, but can you?</p>",
+      "ques":"<p>Nazmul was making his first website. After saving the code, he locked his laptop with a password and mentioned some phrases for the hint box. <a href="https://i.ibb.co/LNj3DDW/darkness.png"> ✨ Zendaya </a> tried to see what was Nazmul's progress. But he saw that it was protected with password. Following is the hint that appeared when Zendaya entered a wrong password.<br>"1 microwave,3 GeoGebra, 2 books,<br>1 nose, 4 balls, 2 cinema,<br>3 dogs, 1 house, 3 witches\" She really couldn't make any sense out of it, but can you?</p>",
       "img":null
    },
    {
