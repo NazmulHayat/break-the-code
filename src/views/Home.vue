@@ -1,7 +1,7 @@
 <template>
   <div class="mymain" id="mymain">
     <span v-if="show_time"> <Timer /> </span>
-    <div class="mt-6 home_login" v-if="!this.verified">
+    <div class="home_login" v-if="!this.verified">
       <div id="welcome">
         <div id="glitched-writer"></div>
       </div>
@@ -14,7 +14,6 @@
               v-model="uid"
               label="$ Your ID:"
               class="text-field"
-              color="black"
               :disabled="loader"
               outlined
               dark
@@ -25,7 +24,6 @@
               v-model="pass"
               label="$ Your Password:"
               class="text-field"
-              color="black"
               outlined
               dark
               :disabled="loader"
@@ -58,7 +56,7 @@
           </div>
         </div>
       </div>
-      <v-snackbar class="pt-2 pr-1" absolute top right v-model="snackbar" :timeout="timeout">
+      <v-snackbar v-model="snackbar" :timeout="timeout">
         {{ snacktext }}
         <template v-slot:action="{ attrs }">
           <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
@@ -74,7 +72,6 @@
         v-show="started"
         :questions="questions"
         :endTime="start + length"
-        :answers="answers"
       />
     </div>
   </div>
@@ -103,7 +100,6 @@ export default {
       presend: null,
       length: null,
       started: false,
-      answers: null
     };
   },
   components: {
@@ -174,11 +170,12 @@ export default {
           }
           if (res.qp != null) {
             this.questions = res.qp;
-            this.answers = res.answers;
-            console.log(res.answers);
           }
           this.start = res.start;
           let diff = this.start - Date.now();
+          if(diff>2147483647){
+            diff = 2147483647;
+          }
           window.setTimeout(
             () => {
               this.started = true;
