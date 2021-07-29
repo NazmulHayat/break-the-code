@@ -56,7 +56,7 @@
             justify="start"
             id="ques-detail"
             class="ques-text pb-4 pl-3 
-            text-h5
+            text-h6
             text-md-h5
             text-lg-h4"
             v-html="item.ques"
@@ -76,7 +76,7 @@
               class="mt-2 ami joss shottti boltesi px-3
               text-subtitle-1
               text-md-h6"
-              rows="2"
+              rows="3"
               v-model="answers[i]"
             ></v-textarea>
           </v-row>
